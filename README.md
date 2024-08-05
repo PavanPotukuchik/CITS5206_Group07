@@ -12,6 +12,8 @@ CITS5206 - Information Technology Capstone Project SEM-2 2024
 
 24095031      Janki Prafulbhai Rangani
 
+23244793	Kartik Bhalala	
+
 	
 # Summary
 Client portal to reduce back and forth for website development - TBA
