@@ -1,0 +1,24 @@
+Google form - 
+Questionnaire for the client to answer the questions on their requirements/expectation  - Multiple questions with respect to each feature of the application.
+-	Each page only one question about features of application they are requesting.
+-	The questionnaire should be customizable but there should be base checklist.
+-	The questionnaire should be dynamic based on answers provided in the previous questions. 
+Eg. If client does not need an image on page4 (of their website) – the client should not see questions on size and position of the image.
+-	Client should have 2 options of filling the questionnaire 
+o	Form on Desktop
+o	Google form to help fill out the questionnaire.
+
+Progress bar on top of the page with pointers like below 
+– client should be able to know at what is their progress on providing requirements in each of their projects.
+client should be able to see the project progress based on the timelines agreed upon in the Service level Agreement.
+Employees should be able to see progress of the information about client from sales calls like - Contact Details, If they are prospect (requiring follow-up) or  a client, Conversation history with the client.
+Application should collect data about clients providing information about project
+-	Speed of moving through stages
+-	How long do clients take to respond
+[Will there be segregation of projects ?– Small, Medium, Large based on features requested by client – If yes, there should be a different measure of speed]
+Client can Request Change
+-	Employees should be able to read notes
+-	Employees should be able to see the status of the RC
+Through Email – should create an automatic ticket
+Through Google form  - should create an automatic ticket
+Request ticket through option from Client dashboard
