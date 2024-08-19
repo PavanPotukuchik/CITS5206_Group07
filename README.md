@@ -4,7 +4,7 @@ CITS5206 - Information Technology Capstone Project SEM-2 2024
 
   UWA ID	            Name	                    Github Username
   
-23769386		  Yuchen Wang        
+23769386		  Yuchen Wang        		kkglovemy
 
 23985879		  Scarlett Peng          
 
