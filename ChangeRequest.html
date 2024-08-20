@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Request</title>
+    <link rel="stylesheet" href="ChangeReq_CSS.css">
+    <!-- Link to FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="darkBdy">
+    <!-- Header Section -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="contact-info">
+                <span><i class="fas fa-envelope"></i> alessandra@rockinghamwebservices.com</span>
+                <span><i class="fas fa-clock"></i> Opening hours: Mon-Thurs: 8:00am-4:00pm</span>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61556220165502" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@rockinghamwebservices2" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.linkedin.com/company/rockingham-web-services/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <div class="logo">
+                <img src="logo.png" alt="Rockingham Logo">
+                <div class="logo-text">
+                    <span>Rockingham</span>
+                    <small>Web Services</small>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><button onclick="location.href='https://rockinghamwebservices.com/'">Home</button></li>
+                    <li><button onclick="location.href='https://rockinghamwebservices.com/about/'">About</button></li>
+                    <li class="dropdown">
+                        <button class="dropbtn">Services <i class="fas fa-caret-down"></i></button>
+                        <div class="dropdown-content">
+                            <a href="https://rockinghamwebservices.com/web-design/">Website Design</a>
+                            <a href="https://rockinghamwebservices.com/web-development/">Website Development</a>
+                        </div>
+                    </li>
+                    <li><button onclick="location.href='https://rockinghamwebservices.com/contact/'">Contact</button></li>
+                </ul>
+            </nav>
+            <div class="actions">
+                <button class="btn-primary" onclick="location.href='login.html'">Logout</button>
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="content-container">
+        <!-- Change Request Form -->
+        <div class="form-container">
+            <h1>Change Request</h1>
+            <form action="#" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="ticket-number">Ticket No#</label>
+                    <input type="text" id="ticket-number" name="ticket-number" value="12345" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="project-name">Project Name *</label>
+                    <select id="project-name" name="project-name" required>
+                        <option value="" disabled selected>Please select</option>
+                        <option value="project1">Project 1</option>
+                        <option value="project2">Project 2</option>
+                        <option value="project3">Project 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="feature-to-change">Feature to be changed *</label>
+                    <select id="feature-to-change" name="feature-to-change" required>
+                        <option value="" disabled selected>Please select</option>
+                        <option value="feature1">Feature 1</option>
+                        <option value="feature2">Feature 2</option>
+                        <option value="feature3">Feature 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Change to (Description)</label>
+                    <textarea id="description" name="description" rows="4" placeholder="Describe the change required"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="reason">Reason</label>
+                    <textarea id="reason" name="reason" rows="4" placeholder="Provide a reason for the change"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="documents">Attach Documents</label>
+                    <input type="file" id="documents" name="documents" accept=".doc,.docx,.pdf,.jpg,.png,.xls,.xlsx">
+                    <small>Note: There is an attachment file size limit of 20MB.</small>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

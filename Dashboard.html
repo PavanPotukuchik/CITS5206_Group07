@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="Dash_Check2.css">
+        <!-- Link to FontAwesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </head>
+    <body class="darkBdy">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="top-bar">
+                <div class="contact-info">
+                    <span><i class="fas fa-envelope"></i> alessandra@rockinghamwebservices.com</span>
+                    <span><i class="fas fa-clock"></i> Opening hours: Mon-Thurs: 8:00am-4:00pm</span>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/profile.php?id=61556220165502" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@rockinghamwebservices2" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.linkedin.com/company/rockingham-web-services/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="nav-bar">
+                <div class="logo">
+                    <img src="logo.png" alt="Rockingham Logo">
+                    <div class="logo-text">
+                        <span>Rockingham</span>
+                        <small>Web Services</small>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><button onclick="location.href='https://rockinghamwebservices.com/'">Home</button></li>
+                        <li><button onclick="location.href='https://rockinghamwebservices.com/about/'">About</button></li>
+                        <li class="dropdown">
+                            <button class="dropbtn">Services <i class="fas fa-caret-down"></i></button>
+                            <div class="dropdown-content">
+                                <a href="https://rockinghamwebservices.com/web-design/">Website Design</a>
+                                <a href="https://rockinghamwebservices.com/web-development/">Website Development</a>
+                            </div>
+                        </li>
+                        <li><button onclick="location.href='https://rockinghamwebservices.com/contact/'">Contact</button></li>
+                    </ul>
+                </nav>
+                <div class="actions">
+                    <button class="btn-primary" onclick="location.href='login.html'">Logout</button>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Container -->
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3></h3>
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)" onclick="toggleMenu('projects-submenu')">(Customer's Project Name) Projects <i class="fas fa-chevron-down"></i></a>
+                        <ul id="projects-submenu" class="submenu">
+                            <li><a href="#">Project 1</a></li>
+                            <li><a href="#">Project 2</a></li>
+                            <li><a href="#">Project 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="change-request.html">Change Request</a></li>
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <h2>(Customer's Project Name) Projects</h2>
+                <a href="change-request.html" class="btn-change-request">Create Change Request</a>
+                <table class="project-table">
+                    <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Start Date</th>
+                            <th>Current Completion Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Project 1</td>
+                            <td>2024-01-15</td>
+                            <td>50%</td>
+                        </tr>
+                        <tr>
+                            <td>Project 2</td>
+                            <td>2024-02-20</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td>Project 3</td>
+                            <td>2024-03-05</td>
+                            <td>70%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            // JavaScript to toggle the projects submenu
+            function toggleMenu(id) {
+                var menu = document.getElementById(id);
+                if (menu.style.display === "block") {
+                    menu.style.display = "none";
+                } else {
+                    menu.style.display = "block";
+                }
+            }
+        </script>
+    </body>
+</html>
