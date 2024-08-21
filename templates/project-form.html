@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <title>Clients List</title>
+    <title>Project List</title>
 </head>
 <body>
     <div class="container">
@@ -28,18 +28,19 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <h2>Clients List</h2>
+                    <h2>Project List</h2>
                     <table class="client-project-table">
                         <thead>
                             <tr>
-                                <th>Avatar</th>
-                                <th>Username</th>
-                                <th>Email</th>
+                                <th>projectID</th>
+                                <th>projectName</th>
+                                <th>type</th>
                                 <th>Created</th>
                                 <th>Updated</th>
+                                <th>clientName</th>
                             </tr>
                         </thead>
-                        <tbody id="clientsTableBody">
+                        <tbody id="ProjectsTableBody">
                         </tbody>
                     </table>
                 </div>
@@ -47,7 +48,7 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/clients-list.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/project-list.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

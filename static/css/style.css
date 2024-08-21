@@ -257,50 +257,50 @@ button:hover {
 }
 
 
-.clients-table {
+.client-project-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     border: 1px solid #ddd; 
 }
 
-.clients-table th, .clients-table td {
+.client-project-table th, .client-project-table td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;  
 }
 
-.clients-table th {
+.client-project-table th {
     background-color: #f4f4f4;
     font-weight: bold;
     border-top: 1px solid #ddd;
 }
 
-.clients-table tr:first-child th {
+.client-project-table tr:first-child th {
     border-top: none;
 }
 
-.clients-table tr:hover {
+.client-project-table tr:hover {
     background-color: #f1f1f1;
 }
 
-.clients-table .avatar-img {
+.client-project-table .avatar-img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.clients-table tr:last-child td {
+.client-project-table tr:last-child td {
     border-bottom: 1px solid #ddd;
 }
 
-.clients-table td:last-child, .clients-table th:last-child {
+.client-project-table td:last-child, .client-project-table th:last-child {
     border-right: 1px solid #ddd;
 }
 
-.clients-table td:first-child, .clients-table th:first-child {
+.client-project-table td:first-child, .client-project-table th:first-child {
     border-left: 1px solid #ddd; 
 }
 

@@ -14,6 +14,14 @@ def login():
 def clients_list():
     return render_template('clients-list.html', active_page='clients')
 
+@app.route('/project-list')
+def project_list():
+    return render_template('project-list.html', active_page='project')
+
+@app.route('/project-form')
+def project_form():
+    return render_template('project-form.html', active_page='project-form')
+
 @app.route('/documents')
 def documents():
     user_id = request.args.get('userId')
