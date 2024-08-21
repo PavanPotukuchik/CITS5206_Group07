@@ -1,0 +1,14 @@
+# Ignore Python cache files
+__pycache__/
+
+# Other files/folders to ignore
+*.py[cod]
+*.log
+*.sqlite3
+*.env
+
+# Ignore node_modules if you have frontend dependencies
+node_modules/
+
+# Ignore the .vscode folder if you're using VSCode
+.vscode/
