@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/client.css') }}" />
+    <title>Client Dashboard - Files</title>
+    <style>
+        #uploadSection {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .custom-file-input {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 20px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            background-color: #f6f6f6;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .custom-file-input:hover {
+            background-color: #eee;
+        }
+
+        .custom-file-input input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-input label {
+            font-size: 16px;
+            color: #757575;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        #uploadButton {
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        #uploadButton:hover {
+            background-color: #333;
+        }
+
+        #descriptionInput {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        #fileList {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f6f6f6;
+            border: 1px solid #e0e0e0;
+            transition: background-color 0.3s ease;
+            box-shadow: none;
+            border-radius: 4px;
+        }
+
+        .file-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .file-item .file-description {
+            flex-grow: 2;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .file-item .file-name {
+            flex-grow: 1;
+            font-size: 14px;
+            margin-left: 10px;
+            margin-right: 50px;
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .file-item .file-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .file-item button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-item button:hover {
+            background-color: #333;
+        }
+
+        .file-item button i {
+            font-size: 16px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+
+        .modal-header,
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-footer .btn-confirm {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .modal-footer .btn-confirm:hover {
+            background-color: #333;
+        }
+
+        .modal-footer .btn-cancel {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        .modal-footer .btn-cancel:hover {
+            background-color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .file-item .file-name {
+                margin-bottom: 10px;
+            }
+
+            .file-item button {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            #uploadSection {
+                align-items: stretch;
+            }
+
+            .custom-file-input,
+            #descriptionInput,
+            #uploadButton {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Client</p>
+                    <p class="name">Jane Doe</p>
+                </div>
+            </div>
+            
+            {% include 'client_menu.html' %}
+            
+        </div>
+
+        <div class="main-content">
+            <div class="content-area">
+                <div class="card">
+                    <h2>Upload and Manage Files</h2>
+                    <div id="uploadSection">
+                        <input type="text" id="descriptionInput" placeholder="Enter a short description">
+                        <div class="custom-file-input">
+                            <i class="ph ph-upload-simple"></i>
+                            <label for="fileInput" id="fileLabel">Choose File</label>
+                            <input type="file" id="fileInput">
+                        </div>
+                        <button id="uploadButton">
+                            <i class="ph ph-arrow-up"></i>Upload File
+                        </button>
+                        <h3>Uploaded Files</h3>
+                        <ul id="fileList"></ul>
+                    </div>
+                    <p id="message"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Are you sure you want to delete this file?
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmDeleteButton" class="btn-confirm">Delete</button>
+                    <button id="cancelDeleteButton" class="btn-cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/client.js') }}"></script>
+    <script>
+        const API_URL = 'http://127.0.0.1:8090';
+        const FILE_COLLECTION = 'files';
+        const messageElement = document.getElementById('message');
+        const fileList = document.getElementById('fileList');
+        let fileToDelete = null; 
+
+        document.getElementById('fileInput').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'Choose File';
+            document.getElementById('fileLabel').textContent = fileName;
+        });
+
+        document.getElementById('uploadButton').addEventListener('click', async () => {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const description = document.getElementById('descriptionInput').value;
+
+            if (file && description) {
+                const authData = JSON.parse(localStorage.getItem('client_auth'));
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('user', authData.record.id);
+                formData.append('filename', file.name);
+                formData.append('description', description);
+
+                try {
+                    const response = await fetch(`${API_URL}/api/collections/${FILE_COLLECTION}/records`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${authData.token}`
+                        },
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        messageElement.textContent = 'File uploaded successfully!';
+                        displayFile(data);
+                    } else {
+                        const errorData = await response.json();
+                        messageElement.textContent = 'Failed to upload file: ' + (errorData.message || response.statusText);
+                    }
+                } catch (error) {
+                    messageElement.textContent = 'An error occurred: ' + error.message;
+                }
+            } else {
+                messageElement.textContent = 'Please select a file and enter a description to upload.';
+            }
+        });
+
+        async function loadFiles(userId) {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            try {
+                const response = await fetch(`${API_URL}/api/collections/${FILE_COLLECTION}/records?filter=(user='${userId}')`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authData.token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    data.items.forEach(file => displayFile(file));
+                } else {
+                    const errorData = await response.json();
+                    messageElement.textContent = 'Failed to load files: ' + (errorData.message || response.statusText);
+                }
+            } catch (error) {
+                messageElement.textContent = 'An error occurred: ' + error.message;
+            }
+        }
+
+        function displayFile(file) {
+            const li = document.createElement('li');
+            li.className = 'file-item';
+            li.innerHTML = `
+                <div class="file-description">${file.description || 'No description'}</div>
+                <a href="${API_URL}/api/files/${FILE_COLLECTION}/${file.id}/${file.file}" target="_blank" class="file-name">${file.filename}</a>
+                <div class="file-actions">
+                    <button onclick="openDeleteModal('${file.id}', this)">
+                        <i class="ph ph-trash"></i> Delete
+                    </button>
+                    <button onclick="downloadFile('${file.id}', '${file.file}', '${file.filename}')">
+                        <i class="ph ph-download-simple"></i> Download
+                    </button>
+                </div>
+            `;
+            fileList.appendChild(li);
+        }
+
+        function openDeleteModal(fileId, buttonElement) {
+            fileToDelete = {
+                fileId: fileId,
+                element: buttonElement.parentElement.parentElement
+            };
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        document.getElementById('confirmDeleteButton').addEventListener('click', async () => {
+            if (fileToDelete) {
+                const authData = JSON.parse(localStorage.getItem('client_auth'));
+                try {
+                    const response = await fetch(`${API_URL}/api/collections/${FILE_COLLECTION}/records/${fileToDelete.fileId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${authData.token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        messageElement.textContent = 'File deleted successfully!';
+                        fileToDelete.element.remove();
+                        closeModal();
+                    } else {
+                        const errorData = await response.json();
+                        messageElement.textContent = 'Failed to delete file: ' + (errorData.message || response.statusText);
+                    }
+                } catch (error) {
+                    messageElement.textContent = 'An error occurred: ' + error.message;
+                }
+            }
+        });
+
+        document.getElementById('cancelDeleteButton').addEventListener('click', closeModal);
+
+        function closeModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            fileToDelete = null;
+        }
+
+        function downloadFile(fileId, fileName, originalName) {
+            const link = document.createElement('a');
+            link.href = `${API_URL}/api/files/${FILE_COLLECTION}/${fileId}/${fileName}`;
+            link.download = originalName;
+            link.click();
+        }
+
+        window.addEventListener('load', () => {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            if (authData) {
+                document.getElementById('uploadSection').style.display = 'block';
+                loadFiles(authData.record.id);
+            } else {
+                window.location.href = "{{ url_for('login') }}";
+            }
+        });
+    </script>
+</body>
+</html>

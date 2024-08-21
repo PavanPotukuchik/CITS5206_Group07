@@ -1,0 +1,47 @@
+<div class="nav">
+    <div class="menu">
+        <p class="title">Main</p>
+        <ul>
+            <li class="{% if active_page == 'projects' %}active{% endif %}">
+                <a href="#">
+                    <i class="icon ph-bold ph-folder"></i>
+                    <span class="text">Projects</span>
+                </a>
+            </li>
+            <li class="{% if active_page == 'files' %}active{% endif %}">
+                <a href="{{ url_for('client_files') }}">
+                    <i class="icon ph-bold ph-file-text"></i>
+                    <span class="text">Files</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="menu">
+        <p class="title">Settings</p>
+        <ul>
+            <li class="{% if active_page == 'settings' %}active{% endif %}">
+                <a href="#">
+                    <i class="icon ph-bold ph-gear"></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="menu">
+    <p class="title">Account</p>
+    <ul>
+        <li class="{% if active_page == 'help' %}active{% endif %}">
+            <a href="#">
+                <i class="icon ph-bold ph-info"></i>
+                <span class="text">Help</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="logoutButton">
+                <i class="icon ph-bold ph-sign-out"></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+</div>
