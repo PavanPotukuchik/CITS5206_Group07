@@ -6,6 +6,7 @@ __pycache__/
 *.log
 *.sqlite3
 *.env
+*.venv
 
 # Ignore node_modules if you have frontend dependencies
 node_modules/
