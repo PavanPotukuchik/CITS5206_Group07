@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     async function fetchProject() {
         try {
-            const response = await fetch('http://127.0.0.1:8090/api/collections/users/records', {
+            const response = await fetch('http://127.0.0.1:8090/api/collections/projects/records', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
