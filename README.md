@@ -66,13 +66,7 @@ Performed preliminary security threat modelling for your project (using e.g. STR
 STRIDE - Spoofing, Tampering, Repudiation, Information disclosure, Denial of service and Elevation of privilege.
 Document the plan for all tasks on Trello project area with sufficient detail to complete individual assignment.
 
-What need to be includede in Deliverable 1:
--MVP(All)
--Human experience(Scarlett)
--Prototype mock up(Pavan)
--Technology choices(Kartik)
--Risk/threat analysis(Chris) 
--Project plan: Trello board https://trello.com/b/cO3ZdziQ/cits5206-project-group07 
+
 
 
 
