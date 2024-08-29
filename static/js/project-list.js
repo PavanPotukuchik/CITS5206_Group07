@@ -22,14 +22,19 @@ $(document).ready(function() {
                     const row = document.createElement('tr');
 
                     row.innerHTML = `
-                        <td>${project.projectId}</td>
+                        <td>${project.id}</td>
                         <td>${project.projectName}</td>
-                        <td>${project.type}</td>
+                        <td>${project.projectStatus}</td>
                         <td>${new Date(project.created).toLocaleDateString()}</td>
                         <td>${new Date(project.updated).toLocaleDateString()}</td>
                         <td>${project.clientName}</td>
-
                     `;
+
+                    row.addEventListener('click', () => {
+                        window.location.href = `/project-detail?projectId=${project.id}`;
+                    });
+
+                    row.style.cursor = 'pointer';
 
                     projectTableBody.appendChild(row);
                 });

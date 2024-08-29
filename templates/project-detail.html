@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Project Details</title>
+    <style>
+        
+        #backButton {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #backButton i {
+            font-size: 24px;
+        }
+
+        #backButton:hover {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Admin</p>
+                    <p class="name">Kartik</p>
+                </div>
+            </div>
+            {% include 'menu.html' %}
+        </div>
+        <div class="main-content">
+            <div class="content-area">
+                <button id="backButton">
+                    <i class="ph-bold ph-arrow-left"></i>
+                </button>
+                <div class="card">
+                    <h2>Project Details</h2>
+                    <p><strong>Name:</strong> <span id="clientName"></span></p>
+                    <p><strong>Project Name:</strong> <span id="projectName"></span></p>
+                    <p><strong>Description:</strong> <span id="description"></span></p>
+                    <p><strong>Features:</strong> <span id="features"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/project-detail.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -37,5 +37,12 @@ def client_dashboard():
 def client_files():
     return render_template('client-files.html', active_page='files')
 
+@app.route('/project-detail')
+def project_detail():
+    project_id = request.args.get('projectId')
+    # Here you can retrieve project details from your database using `project_id`
+    if project_id:
+        return render_template('project-detail.html', project_id=project_id,active_page='project')
+    return render_template('project-detail.html', active_page='project')
 if __name__ == '__main__':
     app.run(debug=True)
