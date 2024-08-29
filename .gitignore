@@ -13,3 +13,6 @@ node_modules/
 
 # Ignore the .vscode folder if you're using VSCode
 .vscode/
+
+# virtual env
+.venv/

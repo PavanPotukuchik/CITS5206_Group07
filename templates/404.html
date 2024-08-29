@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Page Not Found</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 80px 20px;
+            margin: 0 auto;
+            transform: translateY(-10vh);
+            max-width: 600px;
+        }
+
+        .error-container h1 {
+            font-size: 100px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .error-container p {
+            font-size: 24px;
+            color: #555;
+        }
+
+        .error-container a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .error-container a:hover {
+            background-color: #333;
+        }
+
+        .error-container .icon {
+            font-size: 150px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <i class="ph ph-warning-circle icon"></i>
+        <h1>404</h1>
+        <p>Oops! The page you're looking for doesn't exist.</p>
+        <a href="{{ url_for('index') }}">Go Back to Home</a>
+    </div>
+</body>
+</html>
