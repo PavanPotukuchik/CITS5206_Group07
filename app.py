@@ -41,7 +41,6 @@ def client_files():
 def page_not_found(e):
     return render_template('404.html'), 404
 
-<<<<<<< HEAD
 @app.route('/project-detail')
 def project_detail():
     project_id = request.args.get('projectId')
@@ -49,7 +48,5 @@ def project_detail():
         return render_template('project-detail.html', project_id=project_id,active_page='project')
     return render_template('project-detail.html', active_page='project')
 
-=======
->>>>>>> 0a80e9692508675c2eeb6d82ddb6fea12857d484
 if __name__ == '__main__':
     app.run(debug=True)
