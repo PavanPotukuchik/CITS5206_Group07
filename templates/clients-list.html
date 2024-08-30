@@ -28,7 +28,12 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <h2>Clients List</h2>
+                    <div class="client-list-head"> 
+                        <h2>Clients List</h2>
+                        <a href="{{ url_for('add_client') }}">
+                            <button class="add-button"> Add Client</button>
+                        </a>
+                    </div>
                     <table class="client-project-table">
                         <thead>
                             <tr>

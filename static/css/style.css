@@ -223,14 +223,27 @@ body {
     color: #555;
 }
 
+.client-list-head {
+    display: inline;
+    margin-bottom: 35px;
+}
 
-button {
-    background-color: #000;
+.client-list-head h2 {
+    padding-top: 10px;
+    float: left;
+}
+
+
+.client-list-head button {
+    background-color: #303030;
+    float: inline-end;
     color: #fff;
     border: none;
     padding: 10px 20px;
+    margin-bottom: 10px;
     border-radius: 8px;
     cursor: pointer;
+    font-size: large;
     transition: background-color 0.3s ease;
 }
 
