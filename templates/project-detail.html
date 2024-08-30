@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Project Details</title>
+    <style>
+
+        #backButton {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #backButton:hover {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .card p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .card p strong {
+            flex-basis: 150px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card p span {
+            flex-grow: 1;
+            padding: 8px 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            max-width: 700px; /* Set a maximum width for the text boxes */
+            word-wrap: break-word; /* Ensure text wraps within the box */
+            overflow: hidden;
+            white-space: pre-wrap;
+        }
+
+        .card .features {
+            display: block;
+            margin: 0;
+            padding: 8px 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Admin</p>
+                    <p class="name">Kartik</p>
+                </div>
+            </div>
+            {% include 'menu.html' %}
+        </div>
+        <div class="main-content">
+            <div class="content-area">
+                <button id="backButton">
+                    <i class="ph-bold ph-arrow-left"></i>
+                </button>
+                <div class="card">
+                    <h2>Project Details</h2>
+                    <p><strong>Project ID:</strong> <span id="projectId"></span></p>
+                    <p><strong>Project Name:</strong> <span id="projectName"></span></p>
+                    <p><strong>Status:</strong> <span id="projectStatus"></span></p>
+                    <p><strong>Created On:</strong> <span id="createdDate"></span></p>
+                    <p><strong>Last Updated:</strong> <span id="updatedDate"></span></p>
+                    <p><strong>Client Name:</strong> <span id="clientName"></span></p>
+                    <p><strong>Description:</strong> <span id="description"></span></p>
+                    <p><strong>Features:</strong> <span id="features"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/project-detail.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
