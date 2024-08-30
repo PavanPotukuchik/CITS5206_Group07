@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Project Details</title>
     <style>
-        
+
         #backButton {
-            display: none;
+            display: inline-flex;
             width: 40px;
             height: 40px;
             background-color: #f0f0f0;
@@ -20,20 +20,61 @@
             cursor: pointer;
             font-size: 18px;
             transition: background-color 0.3s ease;
-            display: inline-flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
 
-        #backButton i {
-            font-size: 24px;
-        }
-
         #backButton:hover {
             background-color: #e0e0e0;
             color: #000;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .card p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .card p strong {
+            flex-basis: 150px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card p span {
+            flex-grow: 1;
+            padding: 8px 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            max-width: 700px; /* Set a maximum width for the text boxes */
+            word-wrap: break-word; /* Ensure text wraps within the box */
+            overflow: hidden;
+            white-space: pre-wrap;
+        }
+
+        .card .features {
+            display: block;
+            margin: 0;
+            padding: 8px 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -61,8 +102,12 @@
                 </button>
                 <div class="card">
                     <h2>Project Details</h2>
-                    <p><strong>Name:</strong> <span id="clientName"></span></p>
+                    <p><strong>Project ID:</strong> <span id="projectId"></span></p>
                     <p><strong>Project Name:</strong> <span id="projectName"></span></p>
+                    <p><strong>Status:</strong> <span id="projectStatus"></span></p>
+                    <p><strong>Created On:</strong> <span id="createdDate"></span></p>
+                    <p><strong>Last Updated:</strong> <span id="updatedDate"></span></p>
+                    <p><strong>Client Name:</strong> <span id="clientName"></span></p>
                     <p><strong>Description:</strong> <span id="description"></span></p>
                     <p><strong>Features:</strong> <span id="features"></span></p>
                 </div>

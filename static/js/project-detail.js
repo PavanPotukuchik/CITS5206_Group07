@@ -18,14 +18,23 @@ $(document).ready(function() {
             });
 
             if (response.ok) {
-                const project = await response.json();
+                const data = await response.json();
 
-                // Populate the details
-                document.getElementById('clientName').textContent = project.clientName;
-                document.getElementById('projectName').textContent = project.projectName;
-                document.getElementById('description').textContent = project.description || "No description available";
-                document.getElementById('features').textContent = project.features || "No features listed";
+                const project = data.items.find(item => item.id === projectId);
 
+                if (project) {
+                    // Populate the details
+                    document.getElementById('projectId').textContent = project.id;
+                    document.getElementById('projectName').textContent = project.projectName;
+                    document.getElementById('projectStatus').textContent = project.projectStatus;
+                    document.getElementById('createdDate').textContent = new Date(project.created).toLocaleDateString();
+                    document.getElementById('updatedDate').textContent = new Date(project.updated).toLocaleDateString();
+                    document.getElementById('clientName').textContent = project.clientName;
+                    document.getElementById('description').textContent = project.description || "No description available";
+                    document.getElementById('features').textContent = project.features || "No features listed";
+                } else {
+                    console.error('Project not found.');
+                }
             } else {
                 console.error('Failed to fetch project details.');
             }
