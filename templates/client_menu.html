@@ -3,7 +3,7 @@
         <p class="title">Main</p>
         <ul>
             <li class="{% if active_page == 'projects' %}active{% endif %}">
-                <a href="#">
+                <a href="{{ url_for('client_projects') }}">
                     <i class="icon ph-bold ph-folder"></i>
                     <span class="text">Projects</span>
                 </a>
@@ -20,7 +20,7 @@
         <p class="title">Settings</p>
         <ul>
             <li class="{% if active_page == 'settings' %}active{% endif %}">
-                <a href="#">
+                <a href="{{ url_for('client_settings') }}">
                     <i class="icon ph-bold ph-gear"></i>
                     <span class="text">Settings</span>
                 </a>

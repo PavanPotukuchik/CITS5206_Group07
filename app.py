@@ -41,6 +41,18 @@ def client_dashboard():
 def client_files():
     return render_template('client-files.html', active_page='files')
 
+@app.route('/client-projects')
+def client_projects():
+    return render_template('client-projects.html', active_page='projects')
+
+@app.route('/client-settings')
+def client_settings():
+    return render_template('client-settings.html', active_page='settings')
+
+@app.route('/modify-settings')
+def modify_settings():
+    return render_template('modify-settings.html', active_page='settings')
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
