@@ -28,13 +28,25 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <h2>Add New Project</h2>
-                    <form>
-                        
-                    </form>
+                    <h2>Project List</h2>
+                    <table class="client-project-table">
+                        <thead>
+                            <tr>
+                                <th>projectID</th>
+                                <th>projectName</th>
+                                <th>projectStatus</th>
+                                <th>Created</th>
+                                <th>Updated</th>
+                                <th>clientName</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectTableBody">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+        
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/project-list.js') }}"></script>
