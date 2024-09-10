@@ -182,7 +182,7 @@
                                 <td id="updatedDate"></td>
                             </tr>
                             <tr>
-                                <td><strong>Client ID:</strong></td>
+                                <td><strong>Client Name:</strong></td>
                                 <td id="clientName"></td>
                             </tr>
                             <tr>
@@ -214,25 +214,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/project-detail.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script>
-        document.getElementById('clientInfoBtn').addEventListener('click', function() {
-            window.location.href = '/clients-list'; // Redirects to the client list page
-        });
-
-        document.getElementById('resourcesBtn').addEventListener('click', function() {
-            const clientIdElement = document.getElementById('clientName');
-            const clientId = clientIdElement.textContent.trim(); 
-            if (clientId) {
-                window.location.href = `/documents?userId=${clientId}`;
-            } else {
-                console.error('Client ID not found');
-            }
-        });
-
-        document.getElementById('requestFormBtn').addEventListener('click', function() {
-            // Action for the request form button (this part is not specified yet)
-            console.log('Request Form button clicked.');
-        });
-    </script>
 </body>
 </html>
