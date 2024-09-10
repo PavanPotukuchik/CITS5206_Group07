@@ -64,5 +64,14 @@ def project_detail():
         return render_template('project-detail.html', project_id=project_id,active_page='project')
     return render_template('project-detail.html', active_page='project')
 
+@app.route('/dashboard')
+def dashboard():
+    # Fetch data from PocketBase collection
+    response = requests.get('http://127.0.0.1:8090/api/collections/dashboard_items/records')
+    data = response.json() if response.status_code == 200 else []
+    
+    # Pass the data to the HTML template
+    return render_template('index.html', items=data['items'])
+
 if __name__ == '__main__':
     app.run(debug=True)
