@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     async function fetchProject() {
         try {
-            const response = await fetch('http://127.0.0.1:8090/api/collections/project/records', {
+            const response = await fetch('http://127.0.0.1:8090/api/collections/project/records?expand=clientName', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -20,6 +20,7 @@ $(document).ready(function() {
 
                 projectData.items.forEach(project => {
                     const row = document.createElement('tr');
+                    const clientName = project.expand?.clientName?.username || 'Unknown User';
 
                     row.innerHTML = `
                         <td>${project.id}</td>
@@ -27,7 +28,7 @@ $(document).ready(function() {
                         <td>${project.projectStatus}</td>
                         <td>${new Date(project.created).toLocaleDateString()}</td>
                         <td>${new Date(project.updated).toLocaleDateString()}</td>
-                        <td>${project.clientName}</td>
+                        <td>${clientName}</td> 
                     `;
 
                     row.addEventListener('click', () => {
