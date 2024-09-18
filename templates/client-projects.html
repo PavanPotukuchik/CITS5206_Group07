@@ -7,226 +7,59 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/client.css') }}" />
     <style>
-        #uploadSection {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 20px;
-            margin-top: 20px;
+        .main-content {
+            flex: 1;
+            padding: 20px;
         }
 
-        .custom-file-input {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            padding: 10px 20px;
-            border: 2px dashed #ccc;
+        .card {
+            background-color: #fff;
+            padding: 20px;
             border-radius: 8px;
-            background-color: #f6f6f6;
-            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
             width: 100%;
-            max-width: 500px;
-            position: relative;
+            border-collapse: collapse;
         }
 
-        .custom-file-input:hover {
-            background-color: #eee;
-        }
-
-        .custom-file-input input[type="file"] {
-            display: none;
-        }
-
-        .custom-file-input label {
-            font-size: 16px;
-            color: #757575;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-        }
-
-        #uploadButton {
-            padding: 10px 20px;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-
-        #uploadButton:hover {
-            background-color: #333;
-        }
-
-        #descriptionInput {
-            width: 100%;
-            max-width: 500px;
+        th, td {
             padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 10px;
+            text-align: left;
         }
 
-        #fileList {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-            width: 100%;
+        th {
+            background-color: #f4f4f4;
         }
 
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #f6f6f6;
-            border: 1px solid #e0e0e0;
-            transition: background-color 0.3s ease;
-            box-shadow: none;
-            border-radius: 4px;
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
-        .file-item:hover {
-            background-color: #f0f0f0;
+        tr:hover {
+            background-color: #f1f1f1;
         }
 
-        .file-item .file-description {
-            flex-grow: 2;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .file-item .file-name {
-            flex-grow: 1;
-            font-size: 14px;
-            margin-left: 10px;
-            margin-right: 50px;
-            color: #000;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .file-item .file-actions {
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-        }
-
-        .file-item button {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px 12px;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background-color 0.3s ease;
-        }
-
-        .file-item button:hover {
-            background-color: #333;
-        }
-
-        .file-item button i {
-            font-size: 16px;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 8px;
-        }
-
-        .modal-header,
-        .modal-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .modal-footer {
-            margin-top: 20px;
-        }
-
-        .modal-footer button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .modal-footer .btn-confirm {
-            background-color: #000;
-            color: #fff;
-        }
-
-        .modal-footer .btn-confirm:hover {
-            background-color: #333;
-        }
-
-        .modal-footer .btn-cancel {
-            background-color: #ccc;
-            color: #000;
-        }
-
-        .modal-footer .btn-cancel:hover {
-            background-color: #aaa;
-        }
-
+        /* Media Queries */
         @media (max-width: 768px) {
-            .file-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .file-item .file-name {
-                margin-bottom: 10px;
-            }
-
-            .file-item button {
+            .sidebar {
                 width: 100%;
-                margin-top: 5px;
+                height: auto;
+                box-shadow: none;
             }
 
-            #uploadSection {
-                align-items: stretch;
+            .main-content {
+                padding: 10px;
             }
 
-            .custom-file-input,
-            #descriptionInput,
-            #uploadButton {
-                width: 100%;
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
             }
         }
     </style>
@@ -239,23 +72,33 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img id="user-avatar" src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
                 </div>
                 <div class="user-details">
                     <p class="title">Client</p>
                     <p class="name" id="username">Loading...</p>
                 </div>
             </div>
-
             {% include 'client_menu.html' %}
-
         </div>
-
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <h2>Projects</h2>
-                    <ul id="projects-list"></ul>
+                    <h2>Project List</h2>
+                    <table class="client-project-table">
+                        <thead>
+                            <tr>
+                                <th>Project ID</th>
+                                <th>Project Name</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectTableBody">
+                            <!-- Projects will be dynamically inserted here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -263,103 +106,93 @@
 
     <script>
         const API_URL = 'http://127.0.0.1:8090';
-        const PROJECT_COLLECTION = 'project';
 
-        async function loadProjects(userId) {
+        async function loadUserDetails() {
             const authData = JSON.parse(localStorage.getItem('client_auth'));
             if (!authData || !authData.token) {
                 window.location.href = "/login";
                 return;
             }
+
             try {
-                const response = await fetch(`${API_URL}/api/collections/${PROJECT_COLLECTION}/records?filter=(clientName='${userId}')`, {
+                const response = await fetch(`${API_URL}/api/collections/users/records/${authData.record.id}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${authData.token}`,
                         'Content-Type': 'application/json'
                     }
                 });
-                const data = await response.json();
-
-                console.log(data)
 
                 if (response.ok) {
-                    const projectList = document.getElementById('projects-list');
-                    projectList.innerHTML = '';  // Clear project list
-
-                    // Check if projects are returned
-                    if (data.items.length > 0) {
-                        data.items.forEach(project => {
-                            const li = document.createElement('li');
-                            li.className = 'file-item';
-                            li.innerHTML = `
-                                <div class="file-description">
-                                    <span class="project-title">${project.projectName}</span>
-                                    <button onclick="toggleDetails('${project.id}')" class="details-btn">View Details</button>
-                                </div>
-                                <div class="file-name">
-                                    ${project.projectStatus}
-                                </div>
-                                <div id="details-${project.id}" class="project-details" style="display: none;">
-                                    <p><strong>Description:</strong> ${project.description || 'No description available.'}</p>
-                                    <p><strong>Start Date:</strong> ${project.start_date || 'N/A'}</p>
-                                    <p><strong>End Date:</strong> ${project.end_date || 'N/A'}</p>
-                                </div>
-                            `;
-                            projectList.appendChild(li);
-                        });
-                    } else {
-                        projectList.innerHTML = '<p>No projects found for this user.</p>';
-                    }
+                    const user = await response.json();
+                    document.getElementById('username').innerText = user.username;
                 } else {
-                    console.error('Failed to load projects:', data.message);
+                    console.error('Failed to load user details');
+                    window.location.href = "/login";
+                }
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        }
+
+        async function fetchProjects() {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            if (!authData || !authData.token) {
+                window.location.href = "/login";
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/collections/project/records?filter=(clientName='${authData.record.id}')`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authData.token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const projectTableBody = document.getElementById('projectTableBody');
+
+                    data.items.forEach(project => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td>${project.id}</td>
+                            <td>${project.projectName}</td>
+                            <td>${project.projectStatus}</td>
+                            <td>${new Date(project.created).toLocaleDateString()}</td>
+                            <td>${new Date(project.updated).toLocaleDateString()}</td>
+                        `;
+
+                        row.addEventListener('click', () => {
+                            window.location.href = `/project-detail-client?projectId=${project.id}`;
+                        });
+
+                        row.style.cursor = 'pointer';
+
+                        projectTableBody.appendChild(row);
+                    });
+
+                } else {
+                    console.error('Failed to load projects');
                 }
             } catch (error) {
                 console.error('Error fetching projects:', error);
             }
         }
 
-        function toggleDetails(projectId) {
-            const detailsElement = document.getElementById(`details-${projectId}`);
-            const isVisible = detailsElement.style.display === 'block';
-            detailsElement.style.display = isVisible ? 'none' : 'block';
+        window.onload = function() {
+            loadUserDetails();
+            fetchProjects();
         }
 
-        async function loadUserDetails() {
-            const authData = JSON.parse(localStorage.getItem('client_auth'));
-            if (authData && authData.record && authData.token) {
-                try {
-                    const response = await fetch(`${API_URL}/api/collections/users/records/${authData.record.id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${authData.token}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    if (response.ok) {
-                        const user = await response.json();
-                        document.getElementById('username').innerText = user.username;
-                        const avatarUrl = user.avatar 
-                            ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
-                            : "{{ url_for('static', filename='img/user.jpg') }}";
-                        document.getElementById('user-avatar').src = avatarUrl;
-
-                        // Load projects after successfully fetching user details
-                        loadProjects(user.id);
-
-                    } else {
-                        console.error('Failed to load user details');
-                    }
-                } catch (error) {
-                    console.error('Error fetching user details:', error);
-                }
-            } else {
-                console.error('User is not authenticated');
-                window.location.href = "/login";
-            }
-        }
-
-        window.onload = loadUserDetails;
+        document.getElementById('logoutButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('admin_auth');
+        window.location.href = "/login";
+    });
     </script>
 </body>
-
+</html>

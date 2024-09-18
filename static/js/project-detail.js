@@ -71,4 +71,10 @@ $(document).ready(function() {
         // Action for the request form button (this part is not specified yet)
         console.log('Question button clicked.');       
     });
+
+    document.getElementById('logoutButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('admin_auth');
+        window.location.href = "/login";
+    });
 });
