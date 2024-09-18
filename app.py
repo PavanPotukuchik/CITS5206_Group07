@@ -53,6 +53,10 @@ def client_settings():
 def modify_settings():
     return render_template('modify-settings.html', active_page='settings')
 
+@app.route('/questioneries')
+def questioneries():
+    return render_template('questionneries1.html', active_page = 'project-form')
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

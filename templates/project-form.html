@@ -28,47 +28,29 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <div class="inner-card">
-                        <h2>Add New Project</h2>
-                        <form id="addProjectForm" class="add-form">
-                            <div class="form-group">
-                                <label for="projectName">Enter Project Name</label>
-                                <input class="input-class" type="text" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="abc">Select Client</label>
-                                <select class="input-class" name="client" id="abc">
-                                    <script>
-                                        
-                                    </script>
-                                    <option value="a">A</option>
-                                    <option value="b">B</option>    
-                                    <option value="c">C</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="logoFile">Enter Logo</label>
-                                <input   type="file" id="logoFile"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Enter description</label>
-                                <input class="input-class" type="textarea" rows="4" id="description" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="features">Enter Top features</label>
-                                <input class="input-class" type="textarea" rows="4" id="features" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="colors">Enter Hex-color codes</label>
-                                <input class="input-class" type="textarea" rows="4" id="colors" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="resources">Enter other resources</label>
-                                <input  type="file" id="resources"  required>
-                            </div>
-                            <button type="submit" class="add-client-button">Add project</button>
-                        </form>
-                    </div>    
+                    <h2>Add New Project</h2>
+                    <form id="addProjectForm" class="add-form">
+                        <div class="form-group">
+                            <label for="projectName">Enter Project Name</label>
+                            <input class="input-class" type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="abc">Select Client</label>
+                            <select class="input-class" name="client" id="abc">
+                                <script>
+                                    
+                                </script>
+                                <option value="a">A</option>
+                                <option value="b">B</option>    
+                                <option value="c">C</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="resources">Enter other resources</label>
+                            <input  type="file" id="resources" >
+                        </div>
+                        <button type="submit" class="add-client-button">Add project</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -84,24 +66,15 @@
 
             const projectName = document.getElementById('name').value;
             const projectClient = document.getElementById('abc').value;
-            const projectDescription = document.getElementById('description').value;
-            const ProjectFeatures = document.getElementById('features').value;
-            const projectLogo = document.getElementById('logoFile').value;
-            const projectColors = document.getElementById('colors').value;
-            const projectResources = document.getElementById('resources').value;
 
             const data = {
                 "projectName": projectName,
-                "client":projectClient,
-                "projectDescription":projectDescription,
-                "features":ProjectFeatures,
-                "logo":projectLogo,
-                "colorCodes":projectColors,
-                "otherResources":projectResources,
+                "client":projectClient
             }
 
             try {
-                const record = await pb.collection('projects').create(data);
+                // const record = await pb.collection('projects').create(data);
+                window.location.href = "{{url_for('questioneries')}}";
 
             } catch (error) {
                 console.log('ERROR');
