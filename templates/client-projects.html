@@ -246,9 +246,9 @@
                     <p class="name" id="username">Loading...</p>
                 </div>
             </div>
-            
+
             {% include 'client_menu.html' %}
-            
+
         </div>
 
         <div class="main-content">
@@ -263,30 +263,54 @@
 
     <script>
         const API_URL = 'http://127.0.0.1:8090';
-        const PROJECT_COLLECTION = 'projects';
+        const PROJECT_COLLECTION = 'project';
 
-        async function loadProjects() {
+        async function loadProjects(userId) {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            if (!authData || !authData.token) {
+                window.location.href = "/login";
+                return;
+            }
             try {
-                const response = await fetch(`${API_URL}/api/collections/${PROJECT_COLLECTION}/records`);
+                const response = await fetch(`${API_URL}/api/collections/${PROJECT_COLLECTION}/records?filter=(clientName='${userId}')`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authData.token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
                 const data = await response.json();
+
+                console.log(data)
 
                 if (response.ok) {
                     const projectList = document.getElementById('projects-list');
-                    data.items.forEach(project => {
-                        const li = document.createElement('li');
-                        li.className = 'file-item';
-                        li.innerHTML = `
-                            <div class="file-description">
-                                <a href="/project-detail?projectId=${project.id}">
-                                    ${project.name}
-                                </a>
-                            </div>
-                            <div class="file-name">
-                                ${project.status}
-                            </div>
-                        `;
-                        projectList.appendChild(li);
-                    });
+                    projectList.innerHTML = '';  // Clear project list
+
+                    // Check if projects are returned
+                    if (data.items.length > 0) {
+                        data.items.forEach(project => {
+                            const li = document.createElement('li');
+                            li.className = 'file-item';
+                            li.innerHTML = `
+                                <div class="file-description">
+                                    <span class="project-title">${project.projectName}</span>
+                                    <button onclick="toggleDetails('${project.id}')" class="details-btn">View Details</button>
+                                </div>
+                                <div class="file-name">
+                                    ${project.projectStatus}
+                                </div>
+                                <div id="details-${project.id}" class="project-details" style="display: none;">
+                                    <p><strong>Description:</strong> ${project.description || 'No description available.'}</p>
+                                    <p><strong>Start Date:</strong> ${project.start_date || 'N/A'}</p>
+                                    <p><strong>End Date:</strong> ${project.end_date || 'N/A'}</p>
+                                </div>
+                            `;
+                            projectList.appendChild(li);
+                        });
+                    } else {
+                        projectList.innerHTML = '<p>No projects found for this user.</p>';
+                    }
                 } else {
                     console.error('Failed to load projects:', data.message);
                 }
@@ -294,7 +318,13 @@
                 console.error('Error fetching projects:', error);
             }
         }
-        loadProjects();
+
+        function toggleDetails(projectId) {
+            const detailsElement = document.getElementById(`details-${projectId}`);
+            const isVisible = detailsElement.style.display === 'block';
+            detailsElement.style.display = isVisible ? 'none' : 'block';
+        }
+
         async function loadUserDetails() {
             const authData = JSON.parse(localStorage.getItem('client_auth'));
             if (authData && authData.record && authData.token) {
@@ -302,7 +332,8 @@
                     const response = await fetch(`${API_URL}/api/collections/users/records/${authData.record.id}`, {
                         method: 'GET',
                         headers: {
-                            'Authorization': `Bearer ${authData.token}`
+                            'Authorization': `Bearer ${authData.token}`,
+                            'Content-Type': 'application/json'
                         }
                     });
                     if (response.ok) {
@@ -312,7 +343,10 @@
                             ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
                             : "{{ url_for('static', filename='img/user.jpg') }}";
                         document.getElementById('user-avatar').src = avatarUrl;
-    
+
+                        // Load projects after successfully fetching user details
+                        loadProjects(user.id);
+
                     } else {
                         console.error('Failed to load user details');
                     }
@@ -321,9 +355,11 @@
                 }
             } else {
                 console.error('User is not authenticated');
+                window.location.href = "/login";
             }
         }
+
         window.onload = loadUserDetails;
     </script>
 </body>
-</html>
+

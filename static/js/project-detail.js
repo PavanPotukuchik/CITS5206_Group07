@@ -65,6 +65,10 @@ $(document).ready(function() {
 
     document.getElementById('requestFormBtn').addEventListener('click', function() {
         // Action for the request form button (this part is not specified yet)
-        console.log('Request Form button clicked.');
+        console.log('Request Form button clicked.');       
+    });
+    document.getElementById('QuestionBtn').addEventListener('click', function() {
+        // Action for the request form button (this part is not specified yet)
+        console.log('Question button clicked.');       
     });
 });
