@@ -29,7 +29,11 @@
             <div class="content-area">
                 <div class="card">
                     <h2>Add questions</h2>
-                    <div class="question-card">                        
+                    <div id="basicQuestionsContainer">
+                    </div>
+
+                    <div class="question-card">
+                        <h3>Or Enter a Custom Question:</h3>                        
                         <form id="questionForm" class="add-form">
                             <div class="form-group">
                                 <h3>Enter a question:</h3>
@@ -71,35 +75,82 @@
 
         const pb = new PocketBase('http://127.0.0.1:8090');
 
-        document.getElementById("questionForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent the form from submitting in the traditional way
+        async function loadBasicQuestions() {
+            try {
+                const basicQuestions = await pb.collection('basicQuestions').getFullList();
 
-            // Get the question input value
+                const container = document.getElementById('basicQuestionsContainer');
+                basicQuestions.forEach(question => {
+                    const div = document.createElement('div');
+                    div.classList.add('basic-question-item');
+                    div.innerHTML = `
+                        <label>
+                            <input type="checkbox" class="basic-question" value="${question.id}" data-question="${question.question}" data-type="${question.type}">
+                            ${question.question} (Type: ${question.type})
+                        </label><br>`;
+                    container.appendChild(div);
+                });
+            } catch (error) {
+                console.error('Error fetching basic questions:', error);
+            }
+        }
+
+        window.onload = loadBasicQuestions;
+
+        const projectId = localStorage.getItem('projectId');
+        const clientId = localStorage.getItem('clientId');
+
+        document.getElementById("questionForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); 
+
+            const selectedBasicQuestions = [];
+            document.querySelectorAll('.basic-question:checked').forEach((checkbox) => {
+                selectedBasicQuestions.push({
+                    question: checkbox.getAttribute('data-question'),
+                    input_type: checkbox.getAttribute('data-type')
+                });
+            });
+
             const questionInput = document.getElementById("question").value;
-
-            // Get the selected radio button value
             const selectedInputType = document.querySelector('input[name="inputType"]:checked').value;
 
-            // Check if a question and input type are selected
-            if (questionInput && selectedInputType) {
-                // Create a new list item to display the question and selected input type
-                const listItem = document.createElement("li");
-                listItem.innerHTML = `
-                <div class='question-card'>
-                        <h4>${questionInput}</h4>
-                        Input Type: ${selectedInputType}
-                </div>
-                `;
+            if (questionInput && selectedInputType) { 
+                selectedBasicQuestions.push({
+                question: questionInput,
+                inputType: selectedInputType
+                });
+            } 
 
+            if (selectedBasicQuestions.length > 0) {
+                try {
+                    for (const questionData of selectedBasicQuestions) {
+                        await pb.collection('questionerries').create({
+                            question: questionData.question,
+                            inputType: questionData.inputType,
+                            project_id: projectId,
+                            client_id: clientId
+                        });
+                    }
 
-                // Add the list item to the unordered list below the form
-                document.getElementById("submittedQuestions").appendChild(listItem);
+                    selectedBasicQuestions.forEach(questionData => {
+                        const listItem = document.createElement("li");
+                        listItem.innerHTML = `
+                            <div class='question-card'>
+                                <h3>${questionData.question}</h3>
+                                Input Type: ${questionData.inputType}<br>
+                            </div><br>`;
+                        document.getElementById("submittedQuestions").appendChild(listItem);
+                    });
 
-                // Reset the form  to allow resubmission
-                document.getElementById("questionForm").reset();
+                    document.getElementById("questionForm").reset();
+
+                } catch (error) {
+                    console.error('Error adding question:', error);
+                }
             } else {
-                alert("Please enter a question and select an input type.");
+                alert("Please select or enter at least one question.");
             }
+
         });
 
     </script>

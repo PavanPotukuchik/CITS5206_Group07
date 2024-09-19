@@ -35,19 +35,10 @@
                             <input class="input-class" type="text" id="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="abc">Select Client</label>
-                            <select class="input-class" name="client" id="abc">
-                                <script>
-                                    
-                                </script>
-                                <option value="a">A</option>
-                                <option value="b">B</option>    
-                                <option value="c">C</option>
+                            <label for="client">Select Client</label>
+                            <select class="input-class" name="client" id="client" required>
+
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="resources">Enter other resources</label>
-                            <input  type="file" id="resources" >
                         </div>
                         <button type="submit" class="add-client-button">Add project</button>
                     </form>
@@ -61,23 +52,47 @@
 
         const pb = new PocketBase('http://127.0.0.1:8090');
 
+        async function loadClients() {
+            try {
+                const clients = await pb.collection('clients').getFullList(); 
+                const clientSelect = document.getElementById('client');
+                
+                clients.forEach(client => {
+                    const option = document.createElement('option');
+                    option.value = client.id; 
+                    option.textContent = client.clientName; 
+                    clientSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching clients:', error);
+            }
+        }
+
+        window.onload = loadClients;
+
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const projectName = document.getElementById('name').value;
-            const projectClient = document.getElementById('abc').value;
+            const clientId = document.getElementById('client').value;
 
             const data = {
                 "projectName": projectName,
-                "client":projectClient
+                "client":clientId
             }
 
             try {
-                // const record = await pb.collection('projects').create(data);
+
+                const record = await pb.collection('projects').create(data);
+                
+                localStorage.setItem('projectName', projectName);
+                localStorage.setItem('clientId', clientId);
+                localStorage.setItem('projectId', record.id);
+
                 window.location.href = "{{url_for('questioneries')}}";
 
             } catch (error) {
-                console.log('ERROR');
+                console.error('Error adding project:', error);
             }
         });
     </script>
