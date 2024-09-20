@@ -157,7 +157,7 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img id="user-avatar" src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
                 </div>
                 <div class="user-details">
                     <p class="title">Client</p>
@@ -219,33 +219,7 @@
     
     <script>
         const API_URL = 'http://127.0.0.1:8090';
-
-        async function loadUserDetails() {
-            const authData = JSON.parse(localStorage.getItem('client_auth'));
-            if (!authData || !authData.token) {
-                window.location.href = "/login";
-                return;
-            }
-
-            try {
-                const response = await fetch(`${API_URL}/api/collections/users/records/${authData.record.id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${authData.token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (response.ok) {
-                    const user = await response.json();
-                    document.getElementById('username').innerText = user.username;
-                } else {
-                    console.error('Failed to load user details');
-                    window.location.href = "/login";
-                }
-            } catch (error) {
-                console.error('Error fetching user details:', error);
-            }
-        }
+        <script src="{{ url_for('static', filename='js/load-user.js') }}"></script>
 
         async function fetchProjectDetails() {
             const urlParams = new URLSearchParams(window.location.search);
