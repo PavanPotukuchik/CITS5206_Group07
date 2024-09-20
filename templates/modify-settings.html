@@ -308,6 +308,8 @@
                             ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
                             : "{{ url_for('static', filename='img/user.jpg') }}";
                         document.getElementById('user-avatar').src = avatarUrl;
+                        localStorage.setItem('username', user.username);
+                        localStorage.setItem('avatar', avatarUrl);
 
                     } else {
                         console.error('Failed to load user details');
