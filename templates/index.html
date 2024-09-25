@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboards</title>
 </head>
 <body>
     <div class="container">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
-                    <p class="name">Kartik Bhalala</p>
+                    <p class="name">this should be dynamic</p>
                 </div>
             </div>
             
@@ -30,14 +30,31 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <h2>Welcome to the Admin Dashboard</h2>
+                    <h2>Welcome to the Admin Dashboard, username!</h2>
                     <p>Select an option from the menu to get started.</p>
+                </div>
+                <div class="card">
+                Total Clients : New clients number/Existing clients number(pie chart/bar percentage) 
+                <p>Total Users: <span id="totalUsersCount"></span></p>
+                <p>new Users: <span id="newUsersCount"></span></p>
+                </div>
+                <div id="chart_div" style="width: 400px; height: 300px;"></div> <!-- This will render the chart -->
+
+                <div class="card">
+                Total Projects: In progress projects/ finished projects 
+                </div>
+
+                <div class="card">
+                    To dos:     
                 </div>
             </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/data-dashboard.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script>
         const authData = localStorage.getItem('admin_auth');
         if (!authData) {
