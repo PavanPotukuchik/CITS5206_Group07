@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif; /* Use Inter font as in the screenshot */
+}
+
+body.darkBdy {
+    background-color: #ffffff; /* Change background to white */
+    color: #000; /* Set default text color to black */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+.header {
+    background-color: #f8f8f8; /* Light background for header */
+    color: #000;
+    padding-bottom: 15px;
+}
+
+.top-bar {
+    background-color: #e0e0e0; /* Light gray for the top bar */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.top-bar .contact-info span {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.top-bar .contact-info i {
+    margin-right: 5px;
+}
+
+.top-bar .social-icons a {
+    color: #000; /* Black icons */
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-bar {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-bar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar .logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-bar .logo-text span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+.nav-bar .logo-text small {
+    display: block;
+    font-size: 12px;
+    color: #666;
+}
+
+.nav-bar nav ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar nav ul li {
+    margin-right: 20px;
+}
+
+.nav-bar nav ul li button,
+.nav-bar nav ul li a {
+    background: none;
+    border: none;
+    color: #000; /* Black text */
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.nav-bar nav ul li button:hover,
+.nav-bar nav ul li a:hover {
+    color: #555; /* Darker gray on hover */
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+}
+
+.actions .btn-primary {
+    background-color: #000; /* Black button */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.actions .fa-moon {
+    font-size: 20px;
+    color: #000;
+}
+
+/* Main Content Styles */
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+}
+
+.form-container {
+    background-color: #f4f4f4; /* Light gray for the form background */
+    padding: 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #000;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid #ccc; /* Light gray border */
+    font-size: 14px;
+    color: #000; /* Black text */
+    background-color: #fff; /* White input background */
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #000; /* Black border on focus */
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #000; /*  background color */
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #333; /* hover */
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f4f4f4;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #000; /* Black links */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd; /* Light gray on hover */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+/* Styles for file upload */
+.file-upload-label {
+    display: inline-block;
+    padding: 12px 20px;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    color: #666;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.file-upload-label:hover {
+    background-color: #333;
+}
+
+.btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-submit i {
+    margin-right: 8px;
+}
