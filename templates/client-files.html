@@ -287,7 +287,7 @@
         </div>
 
     </div>
-    <script src="{{ url_for('static', filename='js/load-user.js') }}"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/client.js') }}"></script>
     <script>
@@ -298,22 +298,16 @@
         let fileToDelete = null; 
 
         document.getElementById('fileInput').addEventListener('change', function() {
-            if (this.files && this.files.length > 0) {
-                const fileName = this.files[0].name;
-                document.getElementById('fileLabel').textContent = fileName;
-            } else {
-                document.getElementById('fileLabel').textContent = 'Choose File';
-            }
+            const fileName = this.files[0] ? this.files[0].name : 'Choose File';
+            document.getElementById('fileLabel').textContent = fileName;
         });
 
-        document.getElementById('uploadButton').addEventListener('click', () => {
-            console.log('Upload button clicked');
+        document.getElementById('uploadButton').addEventListener('click', async () => {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
             const description = document.getElementById('descriptionInput').value;
 
             if (file && description) {
-                console.log('File and description are provided');
                 const authData = JSON.parse(localStorage.getItem('client_auth'));
                 const formData = new FormData();
                 formData.append('file', file);
@@ -332,16 +326,13 @@
 
                     if (response.ok) {
                         const data = await response.json();
-                        console.log('Upload successful:', data);
                         messageElement.textContent = 'File uploaded successfully!';
                         displayFile(data);
                     } else {
                         const errorData = await response.json();
-                        console.error('Upload failed:', errorData);
                         messageElement.textContent = 'Failed to upload file: ' + (errorData.message || response.statusText);
                     }
                 } catch (error) {
-                    console.error('Error occurred during upload:', error);
                     messageElement.textContent = 'An error occurred: ' + error.message;
                 }
             } else {
@@ -445,9 +436,35 @@
                 window.location.href = "{{ url_for('login') }}";
             }
         });
-        window.onload = function() {
-            console.log('页面加载成功');
-        };
+        async function loadUserDetails() {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            if (authData && authData.record && authData.token) {
+                try {
+                    const response = await fetch(`${API_URL}/api/collections/users/records/${authData.record.id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${authData.token}`
+                        }
+                    });
+                    if (response.ok) {
+                        const user = await response.json();
+                        document.getElementById('username').innerText = user.username;
+                        const avatarUrl = user.avatar 
+                            ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
+                            : "{{ url_for('static', filename='img/user.jpg') }}";
+                        document.getElementById('user-avatar').src = avatarUrl;
+    
+                    } else {
+                        console.error('Failed to load user details');
+                    }
+                } catch (error) {
+                    console.error('Error fetching user details:', error);
+                }
+            } else {
+                console.error('User is not authenticated');
+            }
+        }
+        window.onload = loadUserDetails;
     </script>
 </body>
 </html>
