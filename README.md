@@ -17,41 +17,7 @@ CITS5206 - Information Technology Capstone Project SEM-2 2024
 
 23925667 	Jiaheng Gu 
 	
-# Summary
-Client portal to reduce back and forth for website development - TBA
-** Project Overview **:
-Clients have a demo, which can be demoed to show you what to do next step in the project.
-TBA
-0481 778 399, alessandra@rockinghamwebservices.com Allie
-
-What we did in week-3
-
-Basic layout of pages of the application – with fields, buttons, logos, images
-
-List-out the functionalities required in the application, 
-
-The technologies (for front-end, back-end) to be used to develop application.
-
-Had a client meeting on Friday (09/08/2024)
-
-What we will do in week-4
-
-Business Requirement Document [target completion date is Friday (16/08/2024)]
-Define use cases, UML diagrams
-
-Mock-up diagrams with detail elaboration of fields, buttons, error messages.
-
-Mockup Screens:
-Login Page
-Forgot Password Page
-Reset Password Page
-Homepage
--Employee HomePage
--Client HomePage
-List of Questionaire for new client
-Change Request Page
-
-Deliverable1:
+Deliverables:
 
 Client Interaction - to identify and prioritise requirements & scope for the project.
 Identify minimal viable product (MVP) for the project, 
