@@ -64,5 +64,12 @@ def project_detail():
         return render_template('project-detail.html', project_id=project_id,active_page='project')
     return render_template('project-detail.html', active_page='project')
 
+@app.route('/project-detail-client')
+def project_detail_client():
+    project_id = request.args.get('projectId')
+    if project_id:
+        return render_template('project-detail-client.html', project_id=project_id,active_page='project')
+    return render_template('project-detail-client.html', active_page='project')
+
 if __name__ == '__main__':
     app.run(debug=True)
