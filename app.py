@@ -13,6 +13,10 @@ def index():
 def login():
     return render_template('login.html')
 
+@app.route('/changePassword')
+def changePassword():
+    return render_template('changePassword.html', active_page='changePassword')
+
 @app.route('/clients-list')
 def clients_list():
     return render_template('clients-list.html', active_page='clients')
@@ -66,6 +70,10 @@ def project_detail():
     if project_id:
         return render_template('project-detail.html', project_id=project_id,active_page='project')
     return render_template('project-detail.html', active_page='project')
+
+@app.route('/help')
+def help():
+    return render_template('help.html', active_page='help')
 
 if __name__ == '__main__':
     app.run(debug=True)
