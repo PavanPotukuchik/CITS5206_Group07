@@ -317,7 +317,134 @@ button:hover {
     border-left: 1px solid #ddd; 
 }
 
-/*  charts position in dashboard*/
+#backButton {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#backbutton a i{
+    text-decoration: none;
+}
+
+#backButton:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.card p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #666;
+}
+
+.card p strong {
+    flex-basis: 150px;
+    font-weight: bold;
+    color: #333;
+}
+
+.card p span {
+    flex-grow: 1;
+    padding: 8px 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: #333;
+    max-width: 700px; /* Set a maximum width for the text boxes */
+    word-wrap: break-word; /* Ensure text wraps within the box */
+    overflow: hidden;
+    white-space: pre-wrap;
+}
+
+.card .features {
+    display: block;
+    margin: 0;
+    padding: 8px 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+
+
+.inner-card {
+    background-color: #fff;
+    border-radius: 32px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-left: 10%;
+    width: 80%;
+    text-align: center;
+}
+
+.add-form .form-group {
+    /* display: inline; */
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.add-form .form-group label {
+    /* float:left; */
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.input-class {
+    width: 100%;  /* Ensure inputs take up full width of the container */
+    padding: 12px;  /* Consistent padding */
+    border-radius: 16px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.input-class:focus {
+    border-color: #000;
+}
+
+.add-client-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-client-button:hover {
+    background-color: #333;
+}
+
 .chart-wrapper {
     width: 100%;
     text-align: center; /* Centers the charts horizontally */
@@ -342,18 +469,27 @@ button:hover {
         text-align: left;         /* Align text to the left */
     }
 
-/*change password content*/
-.changePassword {
-    display: inline;
-    margin-bottom: 35px;
-}
-
-.changePassword h2 {
-    padding-top: 10px;
-    float: left;
-}
-
-/*change password button*/
+    .changePassword-container {
+        width: 100%;
+        max-width: 400px;  /* Set max width for the form container */
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .changePassword-form .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    
+    .changePassword-form .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
+    }
+    /*change password button*/
 .changePassword-button {
     width: 100%;
     padding: 12px;
@@ -364,84 +500,9 @@ button:hover {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    margin: 0 auto;
 }
 
 .changePassword-button:hover {
     background-color: #333;
 }
-
-/*change password form style*/
-
-.changePassword-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.changePassword-card {
-    background-color: #fff;
-    border-radius: 32px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 100%;
-    text-align: center;
-}
-
-.changePassword-header h2 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.changePassword-header p {
-    margin-bottom: 20px;
-    color: #777;
-    font-size: 14px;
-}
-
-.changePassword-form .form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.changePassword-form .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #555;
-}
-
-.changePassword-form .form-group input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 16px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    color: #333;
-    transition: border-color 0.3s;
-}
-
-.changePassword-form .form-group input:focus {
-    border-color: #000;
-}
-
-#changePasswordCard {
-    display: flex;
-    justify-content: center;  /* Center the container horizontally */
-    align-items: center;      /* Center the container vertically */
-    height: 100vh;            /* Full viewport height to center vertically */
-    /* width: 100vh; */
-}
-
-#changePasswordContainer {
-    width: 100%;             /* Set a specific width */
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-
-
