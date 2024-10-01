@@ -35,9 +35,9 @@ def project_form():
 
 @app.route('/documents')
 def documents():
-    user_id = request.args.get('userId')
-    if user_id:
-        return render_template('documents.html', user_id=user_id, active_page='documents')
+    # user_id = request.args.get('userId')
+    # if user_id:
+    #     return render_template('documents.html', user_id=user_id, active_page='documents')
     return render_template('documents.html', active_page='documents')
 
 @app.route('/client-dashboard')
@@ -66,14 +66,21 @@ def page_not_found(e):
 
 @app.route('/project-detail')
 def project_detail():
-    project_id = request.args.get('projectId')
-    if project_id:
-        return render_template('project-detail.html', project_id=project_id,active_page='project')
+    # project_id = request.args.get('projectId')
+    # if project_id:
+    #     return render_template('project-detail.html', project_id=project_id,active_page='project')
     return render_template('project-detail.html', active_page='project')
 
 @app.route('/help')
 def help():
     return render_template('help.html', active_page='help')
+
+@app.route('/project-detail-client')
+def project_detail_client():
+    project_id = request.args.get('projectId')
+    if project_id:
+        return render_template('project-detail-client.html', project_id=project_id,active_page='project')
+    return render_template('project-detail-client.html', active_page='project')
 
 if __name__ == '__main__':
     app.run(debug=True)
