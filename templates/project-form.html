@@ -28,21 +28,44 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <h2>Project List</h2>
-                    <table class="client-project-table">
-                        <thead>
-                            <tr>
-                                <th>projectID</th>
-                                <th>projectName</th>
-                                <th>projectStatus</th>
-                                <th>Created</th>
-                                <th>Updated</th>
-                                <th>clientName</th>
-                            </tr>
-                        </thead>
-                        <tbody id="projectTableBody">
-                        </tbody>
-                    </table>
+                    <div class="inner-card">
+                        <h2>Add New Project</h2>
+                        <form id="addProjectForm" class="add-form">
+                            <div class="form-group">
+                                <label for="projectName">Enter Project Name</label>
+                                <input class="input-class" type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="abc">Select Client</label>
+                                <select class="input-class" name="client" id="abc">
+                                    <option value="a">A</option>
+                                    <option value="b">B</option>    
+                                    <option value="c">C</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="logo-file">Enter Logo</label>
+                                <input   type="file" id="Logo-file"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Enter description</label>
+                                <input class="input-class" type="textarea" rows="4" id="description" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="features">Enter Top features</label>
+                                <input class="input-class" type="textarea" rows="4" id="features" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="colors">Enter Hex-color codes</label>
+                                <input class="input-class" type="textarea" rows="4" id="colors" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resources">Enter other resources</label>
+                                <input  type="file" id="resources"  required>
+                            </div>
+                            <button type="submit" class="add-client-button">Add project</button>
+                        </form>
+                    </div>    
                 </div>
             </div>
         </div>

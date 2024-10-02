@@ -6,10 +6,10 @@ $(document).ready(function() {
 
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('projectId');
-
+    let clientId = ''; 
     async function fetchProjectDetails() {
         try {
-            const response = await fetch(`http://127.0.0.1:8090/api/collections/projects/records`, {
+            const response = await fetch(`http://127.0.0.1:8090/api/collections/project/records?expand=clientName`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,13 +23,15 @@ $(document).ready(function() {
                 const project = data.items.find(item => item.id === projectId);
 
                 if (project) {
-                    // Populate the details
+                    clientId = project.clientName; 
+                    const clientName = project.expand?.clientName?.name || 'Unknown User';
+
                     document.getElementById('projectId').textContent = project.id;
                     document.getElementById('projectName').textContent = project.projectName;
                     document.getElementById('projectStatus').textContent = project.projectStatus;
                     document.getElementById('createdDate').textContent = new Date(project.created).toLocaleDateString();
                     document.getElementById('updatedDate').textContent = new Date(project.updated).toLocaleDateString();
-                    document.getElementById('clientName').textContent = project.clientName;
+                    document.getElementById('clientName').textContent = clientName; 
                     document.getElementById('description').textContent = project.description || "No description available";
                     document.getElementById('features').textContent = project.features || "No features listed";
                 } else {
@@ -46,6 +48,33 @@ $(document).ready(function() {
     fetchProjectDetails();
 
     document.getElementById('backButton').addEventListener('click', () => {
-        window.location.href = '/project-form';
+        window.location.href = '/project-list';
+    });
+
+    document.getElementById('resourcesBtn').addEventListener('click', function() {
+        if (clientId) {
+            window.location.href = `/documents?userId=${clientId}`;
+        } else {
+            console.error('Client ID not found');
+        }
+    });
+
+    document.getElementById('clientInfoBtn').addEventListener('click', function() {
+        window.location.href = '/clients-list'; 
+    });
+
+    document.getElementById('requestFormBtn').addEventListener('click', function() {
+        // Action for the request form button (this part is not specified yet)
+        console.log('Request Form button clicked.');       
+    });
+    document.getElementById('QuestionBtn').addEventListener('click', function() {
+        // Action for the request form button (this part is not specified yet)
+        console.log('Question button clicked.');       
+    });
+
+    document.getElementById('logoutButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('admin_auth');
+        window.location.href = "/login";
     });
 });

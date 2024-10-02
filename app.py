@@ -8,7 +8,6 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-
 @app.route('/login')
 def login():
     return render_template('login.html')
@@ -77,9 +76,9 @@ def help():
 
 @app.route('/project-detail-client')
 def project_detail_client():
-    project_id = request.args.get('projectId')
-    if project_id:
-        return render_template('project-detail-client.html', project_id=project_id,active_page='project')
+    # project_id = requests.args.get('projectId')
+    # if project_id:
+    #     return render_template('project-detail-client.html', project_id=project_id,active_page='project')
     return render_template('project-detail-client.html', active_page='project')
 
 if __name__ == '__main__':

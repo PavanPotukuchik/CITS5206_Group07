@@ -45,3 +45,12 @@
         </li>
     </ul>
 </div>
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        localStorage.removeItem('client_auth');
+        localStorage.removeItem('username');
+        localStorage.removeItem('avatar');
+        window.location.href = '/login';
+    });
+</script>

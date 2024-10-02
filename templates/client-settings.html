@@ -81,7 +81,8 @@
                             : "{{ url_for('static', filename='img/user.jpg') }}";
                         document.getElementById('avatarPreview').src = avatarUrl;
                         document.getElementById('user-avatar').src = avatarUrl;
-
+                        localStorage.setItem('username', user.username);
+                        localStorage.setItem('avatar', avatarUrl);
                     } else {
                         console.error('Failed to load user details');
                     }
