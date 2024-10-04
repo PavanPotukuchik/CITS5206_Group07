@@ -447,6 +447,23 @@ button:hover {
 }
 
 
+.add-button {
+    width: 20%;
+    padding: 12px;
+    margin-bottom: 12px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #333;
+}
+
 .question-card {
     background-color: #fff;
     border-radius: 32px;

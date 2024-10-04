@@ -29,7 +29,7 @@
             <div class="content-area">
                 <div class="card">
                     <h2>Add New Project</h2>
-                    <form id="addProjectForm" class="add-form">
+                    <form action="{{ url_for('project_form') }}" method="POST" id="addProjectForm" class="add-form">
                         <div class="form-group">
                             <label for="projectName">Enter Project Name</label>
                             <input class="input-class" type="text" id="name" required>
@@ -86,10 +86,10 @@
                 const record = await pb.collection('projects').create(data);
                 
                 localStorage.setItem('projectName', projectName);
-                localStorage.setItem('clientId', clientId);
                 localStorage.setItem('projectId', record.id);
+                console.log(record.id);
 
-                window.location.href = "{{url_for('questioneries')}}";
+                window.location.href = "{{url_for('question_form')}}";
 
             } catch (error) {
                 console.error('Error adding project:', error);
