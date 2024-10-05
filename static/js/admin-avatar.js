@@ -20,3 +20,4 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("No admin authentication data found.");
     }
 });
+

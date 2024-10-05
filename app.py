@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-from datetime import datetime
 
 app = Flask(__name__)
 
@@ -7,10 +6,13 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+@app.route('/changePassword')
+def changePassword():
+    return render_template('changePassword.html', active_page='changePassword')
 
 @app.route('/clients-list')
 def clients_list():
@@ -59,6 +61,10 @@ def page_not_found(e):
 @app.route('/project-detail')
 def project_detail():
     return render_template('project-detail.html', active_page='project')
+
+@app.route('/help')
+def help():
+    return render_template('help.html', active_page='help')
 
 @app.route('/project-detail-client')
 def project_detail_client():
