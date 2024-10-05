@@ -1,36 +1,8 @@
-from flask import Flask, render_template, request, Response
-import requests
+from flask import Flask, render_template
 from datetime import datetime
 
 app = Flask(__name__)
 
-@app.route('/pocketbase/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
-def proxy_to_pocketbase(path):
-    url = f'http://localhost:8090/{path}'
-    
-    headers = {key: value for (key, value) in request.headers if key != 'Host'}
-    
-    resp = requests.request(
-        method=request.method,
-        url=url,
-        headers=headers,
-        data=request.get_data(),
-        cookies=request.cookies, 
-        allow_redirects=False,
-        stream=True
-    )
-    
-    response = Response(
-        resp.iter_content(chunk_size=10 * 1024),
-        content_type=resp.headers.get('Content-Type'),
-        status=resp.status_code
-    )
-    
-    for cookie in resp.cookies:
-        response.set_cookie(cookie.name, cookie.value, **cookie.get_dict())
-    
-    return response
-    
 @app.route('/')
 def index():
     return render_template('index.html')
