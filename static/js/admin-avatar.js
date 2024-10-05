@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const avatarNumber = adminData.avatar || 0;
 
         // Construct the dynamic URL based on the avatar number
-        const avatarUrl = `http://127.0.0.1:8090/_/images/avatars/avatar${avatarNumber}.svg`;
+        const avatarUrl = `https://five206pocketbase.onrender.com//_/images/avatars/avatar${avatarNumber}.svg`;
 
         // Update the avatar image dynamically in the HTML
         document.getElementById('adminAvatar').src = avatarUrl;
