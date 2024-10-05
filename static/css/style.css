@@ -445,6 +445,40 @@ button:hover {
     background-color: #333;
 }
 
+
+.add-button {
+    width: 20%;
+    padding: 12px;
+    margin-bottom: 12px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #333;
+}
+
+.question-card {
+    background-color: #fff;
+    border-radius: 32px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.radio-inline {
+    display: inline; 
+    margin-right: 20px; 
+}
+
 .chart-wrapper {
     width: 100%;
     text-align: center; /* Centers the charts horizontally */
