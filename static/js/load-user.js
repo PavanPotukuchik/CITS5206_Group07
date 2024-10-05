@@ -1,5 +1,5 @@
 
-    const API_URL = 'https://127.0.0.1:8090';
+    const API_URL = 'http://127.0.0.1:8090';
 
     async function loadUserDetails() {
         const cachedUsername = localStorage.getItem('username');

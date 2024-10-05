@@ -38,7 +38,7 @@
             const password = document.getElementById('password').value;
 
             try {
-                const adminResponse = await fetch('https://127.0.0.1:8090/api/admins/auth-with-password', {
+                const adminResponse = await fetch('http://127.0.0.1:8090/api/admins/auth-with-password', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -54,7 +54,7 @@
                     localStorage.setItem('admin_auth', JSON.stringify(adminData));
                     window.location.href = "{{ url_for('index') }}";
                 } else {
-                    const clientResponse = await fetch('https://127.0.0.1:8090/api/collections/users/auth-with-password', {
+                    const clientResponse = await fetch('http://127.0.0.1:8090/api/collections/users/auth-with-password', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

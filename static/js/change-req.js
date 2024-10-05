@@ -1,6 +1,6 @@
 $(document).ready(function() {
     const authData = localStorage.getItem('admin_auth');
-    const API_URL = 'https://127.0.0.1:8090';
+    const API_URL = 'http://127.0.0.1:8090';
     const FILE_COLLECTION = 'ChangeRequest';
 
     if (!authData) {
@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     async function fetchProject() {
         try {
-                const response = await fetch('https://127.0.0.1:8090/api/collections/project/records?expand=clientName', {
+                const response = await fetch('http://127.0.0.1:8090/api/collections/project/records?expand=clientName', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
