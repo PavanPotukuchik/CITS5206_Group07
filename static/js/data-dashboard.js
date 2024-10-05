@@ -12,7 +12,7 @@ $(document).ready(function() {
     async function fetchUserCounts() {
         try {
             // Make an API call to fetch all users from the 'users' collection
-            const response = await fetch('https://five206pocketbase.onrender.com/api/collections/users/records', {
+            const response = await fetch('https://127.0.0.1:8090/api/collections/users/records', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

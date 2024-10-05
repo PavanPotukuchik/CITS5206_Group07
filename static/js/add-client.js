@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('https://five206pocketbase.onrender.com/');
+const pb = new PocketBase('https://127.0.0.1:8090/');
 
 
 // example create data

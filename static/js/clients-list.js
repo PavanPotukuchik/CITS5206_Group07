@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     async function fetchClients() {
         try {
-            const response = await fetch('https://five206pocketbase.onrender.com/api/collections/users/records', {
+            const response = await fetch('https://127.0.0.1:8090/api/collections/users/records', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ $(document).ready(function() {
                     const row = document.createElement('tr');
 
                     row.innerHTML = `
-                        <td><img src="https://five206pocketbase.onrender.com/api/files/${client.collectionId}/${client.id}/${client.avatar}" alt="Avatar" class="avatar-img"></td>
+                        <td><img src="https://127.0.0.1:8090/api/files/${client.collectionId}/${client.id}/${client.avatar}" alt="Avatar" class="avatar-img"></td>
                         <td>${client.username}</td>
                         <td>${client.email}</td>
                         <td>${new Date(client.created).toLocaleDateString()}</td>
