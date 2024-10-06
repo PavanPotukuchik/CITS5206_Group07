@@ -19,7 +19,7 @@ document.getElementById('changePasswordForm').addEventListener('submit', async (
     }
 
     try {
-        const response = await fetch(`http://127.0.0.1:8090/api/collections/users/records/${authData.record.id}`, {
+        const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/users/records/${authData.record.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
