@@ -12,7 +12,7 @@ document.getElementById('changePasswordForm').addEventListener('submit', async (
         return;
     }
 
-    const authData = JSON.parse(localStorage.getItem('pocketbase_auth'));
+    const authData = JSON.parse(localStorage.getItem('client_auth'));
     if (!authData) {
         messageElement.textContent = 'You are not logged in.';
         return;
@@ -50,7 +50,7 @@ document.getElementById('backButton').addEventListener('click', () => {
 
 // Check if user is logged in on page load
 window.addEventListener('load', () => {
-    const authData = JSON.parse(localStorage.getItem('pocketbase_auth'));
+    const authData = JSON.parse(localStorage.getItem('client_auth'));
     if (!authData) {
         messageElement.textContent = 'You must be logged in to change your password.';
         document.getElementById('changePasswordForm').style.display = 'none';
