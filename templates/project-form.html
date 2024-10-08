@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/ChangReq.css') }}" />
-    <title>Project List</title>
+    <title>Add Project</title>
 </head>
 <body>
     <div class="container">
@@ -29,72 +28,75 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <div class="inner-card">
-                        <h2>Add New Project</h2>
-                        <form id="addProjectForm" class="add-form">
-                            <div class="form-group">
-                                <label for="projectName">Enter Project Name</label>
-                                <input class="input-class" type="text" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="projectName">Select Project Status</label>
-                                <select class="input-class" name="status" id="ddlstatus" required>
-                                    <option></option>
-                                    <option value="Active">Active</option>
-                                    <option value="Pending">Pending</option>    
-                                    <option value="Priority">Priority</option>
-                                    <option value="Not-Started">Not-Started</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="projectName">Select Project Sub-Status</label>
-                                <select class="input-class" name="substatus" id="ddlsubstatus" required>
-                                    <option></option>
-                                    <option value="Requirements-Gathering">Requirements-Gathering</option> 
-                                    <option value="Design">Design</option>
-                                    <option value="Implementation">Implementation</option> 
-                                    <option value="Testing">Testing</option> 
-                                    <option value="Maintenance">Maintenance</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="abc">Select Client</label>
-                                <select class="input-class" name="client" id="ddlclient">
-                                    <option></option>
-                                    <option value="a">A</option>
-                                    <option value="b">B</option>    
-                                    <option value="c">C</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="logo-file">Enter Logo</label>
-                                <input   type="file" id="Logo-file" name="Logo-file"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Enter description</label>
-                                <input class="input-class" type="textarea" rows="4" id="description" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="features">Enter Top features</label>
-                                <input class="input-class" type="textarea" rows="4" id="features" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="resources">Enter other resources</label>
-                                <input  type="file" id="resources" name="resources"  required>
-                            </div>
-                            <button type="submit" class="add-client-button">Add project</button>
-                            <div role="alert" id="flashDiv">
-                                <label id="lblPass" class="modal-label"></label>
-                            </div>
-                        </form>
-                    </div>    
+                    <h2>Add New Project</h2>
+                    <form action="{{ url_for('project_form') }}" method="POST" id="addProjectForm" class="add-form">
+                        <div class="form-group">
+                            <label for="projectName">Enter Project Name</label>
+                            <input class="input-class" type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client">Select Client</label>
+                            <select class="input-class" name="client" id="client" required>
+
+                            </select>
+                        </div>
+                        <button type="submit" class="add-client-button">Add project</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/pocketbase@0.8.0/dist/pocketbase.umd.js"></script>
+
+    <script>
+
+        const pb = new PocketBase('http://127.0.0.1:8090');
+
+        async function loadClients() {
+            try {
+                const clients = await pb.collection('clients').getFullList(); 
+                const clientSelect = document.getElementById('client');
+                
+                clients.forEach(client => {
+                    const option = document.createElement('option');
+                    option.value = client.id; 
+                    option.textContent = client.clientName; 
+                    clientSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching clients:', error);
+            }
+        }
+
+        window.onload = loadClients;
+
+        document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const projectName = document.getElementById('name').value;
+            const clientId = document.getElementById('client').value;
+
+            const data = {
+                "projectName": projectName,
+                "client":clientId
+            }
+
+            try {
+
+                const record = await pb.collection('projects').create(data);
+                
+                localStorage.setItem('projectName', projectName);
+                localStorage.setItem('projectId', record.id);
+                console.log(record.id);
+
+                window.location.href = "{{url_for('question_form')}}";
+
+            } catch (error) {
+                console.error('Error adding project:', error);
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/project-form.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-   
 </body>
 </html>
