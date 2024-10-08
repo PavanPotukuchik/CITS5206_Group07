@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,flash
 
 app = Flask(__name__)
 
@@ -25,6 +25,14 @@ def project_list():
 @app.route('/project-form')
 def project_form():
     return render_template('project-form.html', active_page='project-form')
+
+@app.route('/change-request')
+def change_request():
+    return render_template('change_Request.html')
+
+@app.route('/client-change-request')
+def client_change_request():
+    return render_template('client-change_Request.html')
 
 @app.route('/documents')
 def documents():
@@ -63,6 +71,17 @@ def project_detail():
     if project_id:
         return render_template('project-detail.html', project_id=project_id,active_page='project')
     return render_template('project-detail.html', active_page='project')
+
+@app.route('/client-project-detail')
+def client_project_detail():
+    project_id = request.args.get('projectId')
+    if project_id:
+        return render_template('client-project-detail.html', project_id=project_id,active_page='project')
+    return render_template('client-project-detail.html', active_page='project')
+
+@app.route('/status-update')
+def status_update():
+    return render_template('status-update.html', active_page='project-form')
 
 if __name__ == '__main__':
     app.run(debug=True)
