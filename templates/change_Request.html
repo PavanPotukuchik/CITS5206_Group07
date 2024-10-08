@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ChangReq.css') }}" />
+    <title>Change Request</title>
+</head>
+<body>
+    {% from "_formhelpers.html" import render_field %}
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Admin</p>
+                    <p class="name">Kartik</p>
+                </div>
+            </div>
+            {% include 'menu.html' %}
+        </div>
+        <div class="main-content">
+            <div class="content-area">
+                <div class="card">
+                    <div class="inner-card">
+                        <h1>Change Request</h1>
+                        <form id="addChangeRequest" class="change-form">
+                            
+                            <div class="form-group">
+                                <label for="project-name">Project Name *</label>
+                                <!-- <textarea id="project-name" name="project-name" rows="1" placeholder="project-name"></textarea> -->
+                                <select name="project" id="ddlproject" class="input-class" required>
+                                    <option value=""></option>
+                                    <option value="test">test</option>
+                                    <option value="test1">test1</option>
+                                    <option value="test2">test2</option>
+                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ticket-number">Ticket No#</label>
+                                <input type="text" id="ticket-number" name="ticket-number" value="12345">
+                            </div>
+                            <div class="form-group">
+                                <label for="feature-to-change">Feature to be changed *</label>
+                                <textarea id="feature-to-change" name="feature-to-change" rows="4" placeholder="feature-to-change" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Change to (Description)</label>
+                                <textarea id="description" name="description" rows="4" placeholder="Describe the change required"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reason">Reason</label>
+                                <textarea id="reason" name="reason" rows="4" placeholder="Provide a reason for the change"></textarea>
+                            </div>
+
+                            <!-- Upload Supporting Documentation Section -->
+                            <h2>Upload Supporting Documentation</h2>
+                            <div class="form-group">
+                                <label for="file-description">Enter a short description</label>
+                                <input type="text" id="file-description" name="file-description" placeholder="Enter a short description">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="file-upload" class="file-upload-label">
+                                    <i class="fas fa-upload"></i> Select File
+                                    <input type="file" id="file-upload" name="file-upload">
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn-submit">Submit</button>
+                                <div role="alert" id="flashDiv">
+                                    <label id="lblPass" class="modal-label"></label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/change-req.js') }}"></script>
+    <script src="https://unpkg.com/pocketbase@0.8.0/dist/pocketbase.umd.js"></script>
+</body>
+</html>

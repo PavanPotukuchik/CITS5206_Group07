@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <title>Project List</title>
+    <title>Add Project</title>
 </head>
 <body>
     <div class="container">
@@ -16,11 +16,11 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img id="adminAvatar" alt="Admin Avatar">
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
-                    <p class="name">Kartik</p>
+                    <p class="name" id="adminUsername-1"></p>
                 </div>
             </div>
             {% include 'menu.html' %}
@@ -28,50 +28,77 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
-                    <div class="inner-card">
-                        <h2>Add New Project</h2>
-                        <form id="addProjectForm" class="add-form">
-                            <div class="form-group">
-                                <label for="projectName">Enter Project Name</label>
-                                <input class="input-class" type="text" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="abc">Select Client</label>
-                                <select class="input-class" name="client" id="abc">
-                                    <option value="a">A</option>
-                                    <option value="b">B</option>    
-                                    <option value="c">C</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="logo-file">Enter Logo</label>
-                                <input   type="file" id="Logo-file"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Enter description</label>
-                                <input class="input-class" type="textarea" rows="4" id="description" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="features">Enter Top features</label>
-                                <input class="input-class" type="textarea" rows="4" id="features" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="colors">Enter Hex-color codes</label>
-                                <input class="input-class" type="textarea" rows="4" id="colors" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="resources">Enter other resources</label>
-                                <input  type="file" id="resources"  required>
-                            </div>
-                            <button type="submit" class="add-client-button">Add project</button>
-                        </form>
-                    </div>    
+                    <h2>Add New Project</h2>
+                    <form action="{{ url_for('project_form') }}" method="POST" id="addProjectForm" class="add-form">
+                        <div class="form-group">
+                            <label for="projectName">Enter Project Name</label>
+                            <input class="input-class" type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client">Select Client</label>
+                            <select class="input-class" name="client" id="client" required>
+
+                            </select>
+                        </div>
+                        <button type="submit" class="add-client-button">Add project</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/pocketbase@0.8.0/dist/pocketbase.umd.js"></script>
+
+    <script>
+
+        const pb = new PocketBase('http://127.0.0.1:8090');
+
+        async function loadClients() {
+            try {
+                const clients = await pb.collection('clients').getFullList(); 
+                const clientSelect = document.getElementById('client');
+                
+                clients.forEach(client => {
+                    const option = document.createElement('option');
+                    option.value = client.id; 
+                    option.textContent = client.clientName; 
+                    clientSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching clients:', error);
+            }
+        }
+
+        window.onload = loadClients;
+
+        document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const projectName = document.getElementById('name').value;
+            const clientId = document.getElementById('client').value;
+
+            const data = {
+                "projectName": projectName,
+                "client":clientId
+            }
+
+            try {
+
+                const record = await pb.collection('projects').create(data);
+                
+                localStorage.setItem('projectName', projectName);
+                localStorage.setItem('projectId', record.id);
+                console.log(record.id);
+
+                window.location.href = "{{url_for('question_form')}}";
+
+            } catch (error) {
+                console.error('Error adding project:', error);
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/project-list.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-avatar.js') }}"></script>
 </body>
 </html>
