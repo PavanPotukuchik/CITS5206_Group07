@@ -266,7 +266,56 @@
         const PROJECT_COLLECTION = 'project';
         const authData = JSON.parse(localStorage.getItem('client_auth'));
 
+ChangeRequestForm
         async function loadProjects() {
+=======
+        async function loadUserDetails() {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            if (!authData || !authData.token) {
+                window.location.href = "/login";
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/collections/users/records/${authData.record.id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authData.token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const user = await response.json();
+                    document.getElementById('username').innerText = user.username;
+                    const avatarUrl = user.avatar 
+kkglove
+                        ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
+                        : "{{ url_for('static', filename='img/user.jpg') }}";
+                    document.getElementById('user-avatar').src = avatarUrl;
+
+=======
+                            ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
+                            : "{{ url_for('static', filename='img/user.jpg') }}";
+                        document.getElementById('user-avatar').src = avatarUrl;
+main
+                } else {
+                    console.error('Failed to load user details');
+                    window.location.href = "/login";
+                }
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        }
+
+        async function fetchProjects() {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            if (!authData || !authData.token) {
+                window.location.href = "/login";
+                return;
+            }
+
+main
             try {
                 const response = await fetch(`${API_URL}/api/collections/${PROJECT_COLLECTION}/records?filter=(clientid='${authData.record.id}')`);
                 const data = await response.json();

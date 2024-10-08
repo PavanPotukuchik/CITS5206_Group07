@@ -20,7 +20,15 @@
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
+ChangeRequestForm
                     <p class="name">Kartik Bhalala</p>
+=======
+kkglove
+                    <p class="name">this should be dynamic</p>
+=======
+                    <p class="name" id="adminUsername-1"></p>
+main
+main
                 </div>
             </div>
             
@@ -30,14 +38,102 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
+ChangeRequestForm
                     <h2>Welcome to the Admin Dashboard</h2>
                     <p>Select an option from the menu to get started.</p>
                 </div>
+=======
+kkglove
+                    <h2>Welcome to the Admin Dashboard, username!</h2>
+                    <p>Select an option from the menu to get started.</p>
+                </div>
+                <div class="card">
+                Total Clients : New clients number/Existing clients number(pie chart/bar percentage) 
+                <p>Total Users: <span id="totalUsersCount"></span></p>
+                <p>new Users: <span id="newUsersCount"></span></p>
+                </div>
+                <div id="chart_div" style="width: 400px; height: 300px;"></div> <!-- This will render the chart -->
+
+                <div class="card">
+                Total Projects: In progress projects/ finished projects 
+                </div>
+
+                <div class="card">
+                    To dos:     
+=======
+                    <h2>Welcome to the Admin Dashboard, <span class="name" id="adminUsername-2"></span></h2>
+                    <p>Select an option from the menu to get started.</p>
+                </div>
+
+                <div class="card">
+                <!-- <p><span id="totalUsersCount"></span></p>
+                <p><span id="newUsersCount"></span></p> -->
+
+                <table>
+                    <!-- Table Header -->
+                    <tr>
+                        <th>Total Users</th>
+                        <th>New Users Today</th>
+                        <th>Total Projects</th>
+                        <th>In Progress</th>
+                        <th>Completed</th>
+                        <th>On Hold</th>
+                    </tr>
+                    
+                    <!-- Table Rows -->
+                    <tr>
+                        <td id="totalUsersCount"></td>
+                        <td id="newUsersCount"></td>
+                        <td id="totalProjectsCount"></td>
+                        <td id="inProgressCount"></td>
+                        <td id="completedCount"></td>
+                        <td id="onHoldCount"></td>      
+                    </tr>
+                 
+                </table>
+                </div>
+
+                <div class="chart-wrapper">
+
+                <div id="chart_div" style="width: 400px; height: 300px;"></div>
+                <div id="chart_div-2" style="width: 400px; height: 300px;"></div>
+
+                </div>
+                <div class="card">
+                <!-- Total Projects: In progress projects/ finished projects  -->
+                 <!--<p id="totalProjectsCount">Total Projects: Loading...</p>
+                <p id="inProgressCount">In Progress: Loading...</p>
+                <p id="completedCount">Completed: Loading...</p>
+                <p id="onHoldCount">On Hold: Loading...</p> -->
+                </div>
+
+                <div class="card">
+                    To dos: placeholder for reply to changerequest
+main
+                </div>
+main
             </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+ChangeRequestForm
+=======
+kkglove
+    <script src="{{ url_for('static', filename='js/data-dashboard.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+=======
+    <script src="{{ url_for('static', filename='js/user-dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/project-dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-avatar.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<!---------------------------Javascripts for logout------------------------------------------------------>
+main
+main
     <script>
         const authData = localStorage.getItem('admin_auth');
         if (!authData) {
