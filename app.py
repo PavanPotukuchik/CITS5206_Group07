@@ -12,7 +12,7 @@ POCKETBASE_URL = "http://127.0.0.1:8090"
 @app.route('/')
 def index():
     return render_template('index.html')
-main
+
 
 @app.route('/login')
 def login():
@@ -84,7 +84,7 @@ def change_request():
 @app.route('/client-change-request')
 def client_change_request():
     return render_template('client-change_Request.html')
-main
+
 
 @app.route('/documents')
 def documents():
