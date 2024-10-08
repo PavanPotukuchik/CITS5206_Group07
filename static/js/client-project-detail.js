@@ -1,61 +1,12 @@
 $(document).ready(function() {
-    const authData = localStorage.getItem('admin_auth');
+    const authData = localStorage.getItem('client_auth');
     if (!authData) {
         window.location.href = "/login";
     }
 
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('projectId');
-    
-    let clientId = ''; 
-
-    $(".small-box-footer").click(async function() {        
-        const response = await fetch(`http://127.0.0.1:8090/api/collections/statusUpdates/records?expand=projectid`, {
-            method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${JSON.parse(authData).token}`
-                }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data);
-
-                //$('#modalDetails').modal('show');
-
-                var varDataTableSumm = null;
-                const tbl = document.getElementById('tbl');
-                tbl.style.visibility = "";
-                
-                varDataTableSumm = $('#tbl').DataTable({
-                    "data": data.items,
-                    "paging": false,
-                    "searching": true,
-                    "responsive": true,
-                    "bInfo": false,
-                    "processing": true,
-                    "ordering": true,
-                    "scrollY": '181px',
-                    "scrollX": false,
-                    "scrollCollapse": true,
-                    "language": {
-                        'loadingRecords': '&nbsp;',
-                        'processing': '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
-                    },
-                    "columns": [
-                        { "data": "newStatus"},
-                        { "data": "newSubStatus"},
-                        { "data": "comments"}                    
-                    ],
-                    "order": [[0, 'desc']],
-                    "pageLength": 15,
-                    "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
-                    "columnDefs": [{ "defaultContent": "", "searchable": true, "ordering": true, "className": "text-left", "targets": [0] },
-                                   { "defaultContent": "", "searchable": true, "ordering": true, "className": "text-right", "targets": [] }]
-                });
-            }
-      });
-
+   
     async function fetchProjectDetails() {
         try {
             const response = await fetch(`http://127.0.0.1:8090/api/collections/project/records?expand=clientid`, {
@@ -68,19 +19,21 @@ $(document).ready(function() {
 
             if (response.ok) {
                 const data = await response.json();
+                console.log(data);
                 const project = data.items.find(item => item.id === projectId);
+                var clin_Data = JSON.parse(localStorage.getItem('client_auth')); 
+                var _clinName = null;
 
                 if (project) {
                     console.log(project);
                     const clientName = project.expand?.clientid?.name || 'Unknown User';
-                    clientId = project.clientid;
-                    
+
                     document.getElementById('projectId').textContent = project.id;
                     document.getElementById('projectName').textContent = project.projectName;
                     document.getElementById('projectStatus').textContent = project.projectStatus;
                     document.getElementById('createdDate').textContent = new Date(project.created).toLocaleDateString();
                     document.getElementById('updatedDate').textContent = new Date(project.updated).toLocaleDateString();
-                    document.getElementById('clientName').textContent = clientName; 
+                    document.getElementById('clientName').textContent = clientName;
                     document.getElementById('description').textContent = project.description || "No description available";
                     document.getElementById('features').textContent = project.features || "No features listed";
 
@@ -132,7 +85,6 @@ $(document).ready(function() {
                         $("#divNotStarted").addClass("small-box bg-warning"); 
                         $("#iconNotStarted").addClass("fas fa-thumbs-down");
                     }
-
                 } else {
                     console.error('Project not found.');
                 }
@@ -144,8 +96,8 @@ $(document).ready(function() {
         }
     }
 
-    fetchProjectDetails();    
-    
+    fetchProjectDetails();
+
     document.getElementById('backButton').addEventListener('click', () => {
         window.location.href = '/project-list';
     });
@@ -163,7 +115,7 @@ $(document).ready(function() {
     });
 
     document.getElementById('requestFormBtn').addEventListener('click', function() {
-        window.location.href = `/change-request?projectId=${projectId}`; 
+        window.location.href = `/client-change-request?projectId=${projectId}`; 
     });
 
     document.getElementById('logoutButton').addEventListener('click', function(e) {

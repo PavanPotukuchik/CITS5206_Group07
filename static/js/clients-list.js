@@ -16,6 +16,7 @@ $(document).ready(function() {
 
             if (response.ok) {
                 const clientsData = await response.json();
+
                 const clientsTableBody = document.getElementById('clientsTableBody');
 
                 clientsData.items.forEach(client => {
@@ -44,6 +45,7 @@ $(document).ready(function() {
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('admin_auth');
+        localStorage.removeItem('client_auth');
         window.location.href = "/login";
     });
 });

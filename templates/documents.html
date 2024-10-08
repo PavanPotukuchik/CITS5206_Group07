@@ -6,10 +6,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/documents.css') }}" />
-
     <title>Documents</title>
+    <style>
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
+        .user-table th, .user-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .user-table tr:hover {
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+
+        .user-table td {
+            font-size: 14px;
+            color: #333;
+        }
+
+        #fileList {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f6f6f6;
+            border: 1px solid #e0e0e0;
+            transition: background-color 0.3s ease;
+            box-shadow: none;
+            border-radius: 4px;
+        }
+
+        .file-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .file-item .file-description {
+            flex-grow: 2;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .file-item .file-name {
+            flex-grow: 1;
+            font-size: 14px;
+            margin-left: 10px;
+            margin-right: 50px;
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .file-item .file-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .file-item button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-item button:hover {
+            background-color: #333;
+        }
+
+        .file-item button i {
+            font-size: 16px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+
+        .modal-header,
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-footer .btn-confirm {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .modal-footer .btn-confirm:hover {
+            background-color: #333;
+        }
+
+        .modal-footer .btn-cancel {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        .modal-footer .btn-cancel:hover {
+            background-color: #aaa;
+        }
+
+        #backButton {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #backButton i {
+            font-size: 24px;
+        }
+
+        #backButton:hover {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -19,11 +203,11 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img id="adminAvatar" alt="Admin Avatar">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
-                    <p class="name" id="adminUsername-1"></p>
+                    <p class="name">Kartik Bhalala</p>
                 </div>
             </div>
             {% include 'menu.html' %}
@@ -69,7 +253,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/documents.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin-avatar.js') }}"></script>
 </body>
 </html>

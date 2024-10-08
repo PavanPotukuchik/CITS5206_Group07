@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ChangReq.css') }}" />
-    <title>Project List</title>
+    <title>Project Status Update</title>
 </head>
 <body>
     <div class="container">
@@ -30,11 +30,16 @@
             <div class="content-area">
                 <div class="card">
                     <div class="inner-card">
-                        <h2>Add New Project</h2>
+                        <h2>Update Project Status</h2>
                         <form id="addProjectForm" class="add-form">
                             <div class="form-group">
                                 <label for="projectName">Enter Project Name</label>
-                                <input class="input-class" type="text" id="name" required>
+                                <select name="project" id="ddlproject" class="input-class" required>
+                                    <option value=""></option>
+                                    <option value="test">test</option>
+                                    <option value="test1">test1</option>
+                                    <option value="test2">test2</option>
+                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="projectName">Select Project Status</label>
@@ -58,31 +63,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="abc">Select Client</label>
-                                <select class="input-class" name="client" id="ddlclient">
-                                    <option></option>
-                                    <option value="a">A</option>
-                                    <option value="b">B</option>    
-                                    <option value="c">C</option>
-                                </select>
+                                <label for="comments">Comments</label>
+                                <textarea id="comments" name="comments" rows="3" placeholder="comments" required></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="logo-file">Enter Logo</label>
-                                <input   type="file" id="Logo-file" name="Logo-file"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Enter description</label>
-                                <input class="input-class" type="textarea" rows="4" id="description" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="features">Enter Top features</label>
-                                <input class="input-class" type="textarea" rows="4" id="features" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="resources">Enter other resources</label>
-                                <input  type="file" id="resources" name="resources"  required>
-                            </div>
-                            <button type="submit" class="add-client-button">Add project</button>
+                            <button type="submit" class="add-client-button">Update Status</button>
                             <div role="alert" id="flashDiv">
                                 <label id="lblPass" class="modal-label"></label>
                             </div>
@@ -93,7 +77,7 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/project-form.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/status-update.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
    
 </body>

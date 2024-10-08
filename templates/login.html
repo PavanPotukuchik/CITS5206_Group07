@@ -49,11 +49,14 @@
                     })
                 });
 
-                if (adminResponse.ok) {
+                if (adminResponse.ok) 
+                {
                     const adminData = await adminResponse.json();
                     localStorage.setItem('admin_auth', JSON.stringify(adminData));
                     window.location.href = "{{ url_for('index') }}";
-                } else {
+                } 
+                else 
+                {
                     const clientResponse = await fetch('http://127.0.0.1:8090/api/collections/users/auth-with-password', {
                         method: 'POST',
                         headers: {

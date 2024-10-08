@@ -6,7 +6,230 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/client.css') }}" />
+    <style>
+        #uploadSection {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 20px;
+        }
 
+        .custom-file-input {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 20px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            background-color: #f6f6f6;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .custom-file-input:hover {
+            background-color: #eee;
+        }
+
+        .custom-file-input input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-input label {
+            font-size: 16px;
+            color: #757575;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        #uploadButton {
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        #uploadButton:hover {
+            background-color: #333;
+        }
+
+        #descriptionInput {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        #fileList {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f6f6f6;
+            border: 1px solid #e0e0e0;
+            transition: background-color 0.3s ease;
+            box-shadow: none;
+            border-radius: 4px;
+        }
+
+        .file-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .file-item .file-description {
+            flex-grow: 2;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .file-item .file-name {
+            flex-grow: 1;
+            font-size: 14px;
+            margin-left: 10px;
+            margin-right: 50px;
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .file-item .file-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .file-item button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-item button:hover {
+            background-color: #333;
+        }
+
+        .file-item button i {
+            font-size: 16px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+
+        .modal-header,
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-footer .btn-confirm {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .modal-footer .btn-confirm:hover {
+            background-color: #333;
+        }
+
+        .modal-footer .btn-cancel {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        .modal-footer .btn-cancel:hover {
+            background-color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .file-item .file-name {
+                margin-bottom: 10px;
+            }
+
+            .file-item button {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            #uploadSection {
+                align-items: stretch;
+            }
+
+            .custom-file-input,
+            #descriptionInput,
+            #uploadButton {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -81,8 +304,7 @@
                             : "{{ url_for('static', filename='img/user.jpg') }}";
                         document.getElementById('avatarPreview').src = avatarUrl;
                         document.getElementById('user-avatar').src = avatarUrl;
-                        localStorage.setItem('username', user.username);
-                        localStorage.setItem('avatar', avatarUrl);
+
                     } else {
                         console.error('Failed to load user details');
                     }

@@ -8,7 +8,6 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/datatables.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <title>Project Details</title>
     <style>
@@ -133,8 +132,6 @@
             outline: none;
         }
 
-
-
         .bg-info,
         .bg-info>a {
             color: #fff !important;
@@ -143,16 +140,17 @@
         .bg-info {
             background-color: #17a2b8 !important;
         }
+
         .bg-warning {
             background-color: #e0e0e0 !important;
-            color:white;
+            color: white;
         }
+
         .bg-success {
             background-color: #28a745 !important;
-            color:white;
-            cursor: pointer;
+            color: white;
         }
-        
+
         .small-box {
             border-radius: .25rem;
             box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);
@@ -164,8 +162,9 @@
         .small-box>.inner {
             padding: 10px;
         }
+
         .small-box p {
-            color:#f0f0f0;
+            color: #f0f0f0;
         }
 
         .small-box .icon {
@@ -183,12 +182,18 @@
             text-decoration: none;
             z-index: 10;
         }
-        .small-box .icon>i.fa, .small-box .icon>i.fab, .small-box .icon>i.fad, 
-        .small-box .icon>i.fal, .small-box .icon>i.far, .small-box .icon>i.fas, 
+
+        .small-box .icon>i.fa,
+        .small-box .icon>i.fab,
+        .small-box .icon>i.fad,
+        .small-box .icon>i.fal,
+        .small-box .icon>i.far,
+        .small-box .icon>i.fas,
         .small-box .icon>i.ion {
             font-size: 70px;
             top: 20px;
         }
+
         .small-box .icon>i {
             font-size: 90px;
             position: absolute;
@@ -212,11 +217,11 @@
                     <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
                 </div>
                 <div class="user-details">
-                    <p class="title">Admin</p>
+                    <p class="title">Client</p>
                     <p class="name">Kartik</p>
                 </div>
             </div>
-            {% include 'menu.html' %}
+            {% include 'client_menu.html' %}
         </div>
         <div class="main-content">
             <div class="content-area">
@@ -279,16 +284,15 @@
 
                     <div class="row">
                         <div class="col-lg-3 col-6">
-                            <div id="divNotStarted">
+                            <div id="divActive">
                                 <div class="inner">
-                                    <h3>Not Started/Started</h3>
-                                    <p><label for="notstarted" id="lblNotStarted"></label></p>
+                                    <h3>Active</h3>
+                                    <p><label for="active" id="lblActive"></label></p>
                                 </div>
                                 <div class="icon">
-                                    <i id="iconNotStarted" class="ion ion-bag"></i>
+                                    <i id="iconActive" class="ion ion-bag"></i>
                                 </div>
-                                <div class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></div>
+                                <div class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></div>
                             </div>
                         </div>
 
@@ -301,24 +305,9 @@
                                 <div class="icon">
                                     <i id="iconPending" class="ion ion-bag"></i>
                                 </div>
-                                <div class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></div>
+                                <div class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></div>
                             </div>
                         </div>
-
-                        <div class="col-lg-3 col-6">
-                            <div id="divActive">
-                                <div class="inner">
-                                    <h3>Active</h3>
-                                    <p><label for="active" id="lblActive"></label></p>
-                                </div>    
-                                <div class="icon">
-                                    <i id="iconActive" class="ion ion-bag"></i>
-                                </div>
-                                <div class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></div>
-                            </div>
-                        </div>                       
 
                         <div class="col-lg-3 col-6">
                             <div id="divPriority">
@@ -329,31 +318,33 @@
                                 <div class="icon">
                                     <i id="iconPriority" class="ion ion-bag"></i>
                                 </div>
-                                <div class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></div>
+                                <div class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></div>
                             </div>
-                        </div>                        
+                        </div>
+
+                        <div class="col-lg-3 col-6">
+
+                            <div id="divNotStarted">
+                                <div class="inner">
+                                    <h3>Not Started</h3>
+                                    <p><label for="notstarted" id="lblNotStarted"></label></p>
+                                </div>
+                                <div class="icon">
+                                    <i id="iconNotStarted" class="ion ion-bag"></i>
+                                </div>
+                                <div class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></div>
+                            </div>
+                        </div>
                     </div>
-                    <br>
-                    <table id="tbl" class="table table-responsive table-condensed table-hover stripe display"
-                        style="border: 2px solid lightgrey; border-radius: 4px; width: 99%; margin-bottom: 0px !important; visibility:hidden;">
-                        <thead>
-                            <tr class="active">
-                                <th>Status</th>
-                                <th>Sub-Status</th>
-                                <th>Comments</th>
-                            </tr>
-                        </thead>
-                    </table>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/project-detail.js') }}"></script>    
+    <script src="{{ url_for('static', filename='js/client-project-detail.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
 </body>
 
 </html>

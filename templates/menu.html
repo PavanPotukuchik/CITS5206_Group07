@@ -1,3 +1,4 @@
+<!-- templates/menu.html -->
 <div class="nav">
     <div class="menu">
         <p class="title">Main</p>
@@ -25,7 +26,11 @@
                             <span class="text">View Projects</span>
                         </a>
                     </li>
-
+                    <li>
+                        <a href="{{ url_for('status_update') }}">
+                            <span class="text">Update Project Status</span>
+                        </a>
+                    </li>                    
                 </ul>
             </li>
             
@@ -41,6 +46,12 @@
                     <span class="text">Documents</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ url_for('change_request') }}">
+                    <i class="icon ph-bold">&#10002;</i>
+                    <span class="text">Change Request</span>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="menu">
@@ -48,7 +59,7 @@
         <ul>
             <li>
                 <a href="#">
-                    <i class="icon ph-bold ph-folder"></i>
+                    <i class="icon ph-bold ph-gear"></i>
                     <span class="text">Settings</span>
                     <i class="arrow ph-bold ph-caret-down"></i>
                 </a>
@@ -70,13 +81,12 @@
                     </li>
                 </ul>
     </div>
-    
 </div>
 <div class="menu">
     <p class="title">Account</p>
     <ul>
         <li>
-            <a href="{{ url_for('help') }}">
+            <a href="#">
                 <i class="icon ph-bold ph-info"></i>
                 <span class="text">Help</span>
                 <!--this is where i need to work on: add contact details and intro for the Client Portal(copyrights etc) -->
