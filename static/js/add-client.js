@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    const API_URL = 'http://127.0.0.1:8090';
+    const API_URL = 'https://five206pocketbase.onrender.com';
     const FILE_COLLECTION = 'users';
         
         document.getElementById('addClientForm').addEventListener('submit', async (e) => {
