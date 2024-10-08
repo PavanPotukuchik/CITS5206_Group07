@@ -1,4 +1,8 @@
+ChangeRequestForm
+from flask import Flask, render_template,request,flash
+=======
 from flask import Flask, render_template
+main
 
 app = Flask(__name__)
 
@@ -70,6 +74,16 @@ def project_form():
     # Render the project creation form if the method is GET
     return render_template('project-form.html', active_page='project-form')
 
+ChangeRequestForm
+@app.route('/change-request')
+def change_request():
+    return render_template('change_Request.html')
+
+@app.route('/client-change-request')
+def client_change_request():
+    return render_template('client-change_Request.html')
+=======
+main
 
 @app.route('/documents')
 def documents():
@@ -111,6 +125,18 @@ def page_not_found(e):
 def project_detail():
     return render_template('project-detail.html', active_page='project')
 
+ChangeRequestForm
+@app.route('/client-project-detail')
+def client_project_detail():
+    project_id = request.args.get('projectId')
+    if project_id:
+        return render_template('client-project-detail.html', project_id=project_id,active_page='project')
+    return render_template('client-project-detail.html', active_page='project')
+
+@app.route('/status-update')
+def status_update():
+    return render_template('status-update.html', active_page='project-form')
+=======
 @app.route('/help')
 def help():
     return render_template('help.html', active_page='help')
@@ -118,6 +144,7 @@ def help():
 @app.route('/project-detail-client')
 def project_detail_client():
     return render_template('project-detail-client.html', active_page='project')
+main
 
 if __name__ == '__main__':
     app.run(debug=True)
