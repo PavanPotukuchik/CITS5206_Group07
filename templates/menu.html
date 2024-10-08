@@ -50,9 +50,25 @@
                 <a href="#">
                     <i class="icon ph-bold ph-folder"></i>
                     <span class="text">Settings</span>
+                    <i class="arrow ph-bold ph-caret-down"></i>
                 </a>
-            </li>
-        </ul>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="{{ url_for('project_form') }}">
+                            <span class="text">Change Password</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('project_list') }}">
+                            <span class="text">Update profiles</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="text">placeholder</span>
+                        </a>
+                    </li>
+                </ul>
     </div>
     
 </div>
@@ -63,6 +79,7 @@
             <a href="{{ url_for('help') }}">
                 <i class="icon ph-bold ph-info"></i>
                 <span class="text">Help</span>
+                <!--this is where i need to work on: add contact details and intro for the Client Portal(copyrights etc) -->
             </a>
         </li>
         <li>

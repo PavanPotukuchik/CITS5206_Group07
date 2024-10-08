@@ -157,7 +157,7 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img id="user-avatar" src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
                 </div>
                 <div class="user-details">
                     <p class="title">Client</p>
@@ -456,6 +456,10 @@
                 if (response.ok) {
                     const user = await response.json();
                     document.getElementById('username').innerText = user.username;
+                    const avatarUrl = user.avatar 
+                        ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
+                        : "{{ url_for('static', filename='img/user.jpg') }}";
+                    document.getElementById('user-avatar').src = avatarUrl;
                 } else {
                     console.error('Failed to load user details');
                     window.location.href = "/login";

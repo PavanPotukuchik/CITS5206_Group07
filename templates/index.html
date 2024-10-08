@@ -25,7 +25,11 @@
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
+kkglove
+                    <p class="name">this should be dynamic</p>
+=======
                     <p class="name" id="adminUsername-1"></p>
+main
                 </div>
             </div>
             
@@ -36,6 +40,24 @@
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
+kkglove
+                    <h2>Welcome to the Admin Dashboard, username!</h2>
+                    <p>Select an option from the menu to get started.</p>
+                </div>
+                <div class="card">
+                Total Clients : New clients number/Existing clients number(pie chart/bar percentage) 
+                <p>Total Users: <span id="totalUsersCount"></span></p>
+                <p>new Users: <span id="newUsersCount"></span></p>
+                </div>
+                <div id="chart_div" style="width: 400px; height: 300px;"></div> <!-- This will render the chart -->
+
+                <div class="card">
+                Total Projects: In progress projects/ finished projects 
+                </div>
+
+                <div class="card">
+                    To dos:     
+=======
                     <h2>Welcome to the Admin Dashboard, <span class="name" id="adminUsername-2"></span></h2>
                     <p>Select an option from the menu to get started.</p>
                 </div>
@@ -84,6 +106,7 @@
 
                 <div class="card">
                     To dos: placeholder for reply to changerequest
+main
                 </div>
             </div>
         </div>
@@ -93,6 +116,11 @@
 <!---------------------------Javascripts------------------------------------------------------>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+kkglove
+    <script src="{{ url_for('static', filename='js/data-dashboard.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+=======
     <script src="{{ url_for('static', filename='js/user-dashboard.js') }}"></script>
     <script src="{{ url_for('static', filename='js/project-dashboard.js') }}"></script>
     <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
@@ -101,6 +129,7 @@
 
 
 <!---------------------------Javascripts for logout------------------------------------------------------>
+main
     <script>
         const authData = localStorage.getItem('admin_auth');
         if (!authData) {
