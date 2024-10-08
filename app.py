@@ -34,49 +34,10 @@ def add_client():
 def project_list():
     return render_template('project-list.html', active_page='project')
 
-@app.route('/project-form')   #,methods=['GET', 'POST']
+@app.route('/project-form')
 def project_form():
-    # if request.method == 'POST':
-    #     # Get the project title from the form
-    #     project_title = request.form.get('projectTitle')
-
-    #     if not project_title:
-    #         return "Project title is required", 400 
-
-    #     # Create the project in PocketBase
-    #     try:
-    #         # API endpoint for creating a new project in PocketBase 
-    #         url = f"{POCKETBASE_URL}/api/collections/projects/records"
-
-    #         # Data to send to PocketBase
-    #         data = {
-    #             "title": project_title
-    #         }
-
-    #         # Make the POST request to create the project
-    #         response = request.post(url, json=data)
-
-    #         # Check if the request was successful
-    #         if response.status_code == 200:
-    #             # Parse the response JSON
-    #             project_data = response.json()
-
-    #             # Retrieve the automatically generated project ID from the response
-    #             project_id = project_data['id']  # PocketBase returns the new record's ID
-
-    #             # Redirect to the next page (question form), passing the project_id in the URL
-    #             return redirect(url_for('question_form', project_id=project_id))
-    #         else:
-    #             # Handle error response
-    #             return f"Error creating project: {response.text}", response.status_code
-
-    #     except Exception as e:
-    #         return f"An error occurred while creating the project: {str(e)}"
-
-    # Render the project creation form if the method is GET
     return render_template('project-form.html', active_page='project-form')
 
-ChangeRequestForm
 @app.route('/change-request')
 def change_request():
     return render_template('change_Request.html')
@@ -126,7 +87,6 @@ def page_not_found(e):
 def project_detail():
     return render_template('project-detail.html', active_page='project')
 
-ChangeRequestForm
 @app.route('/client-project-detail')
 def client_project_detail():
     project_id = request.args.get('projectId')
