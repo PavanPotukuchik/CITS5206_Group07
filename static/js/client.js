@@ -18,6 +18,7 @@ $(document).ready(function() {
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('client_auth');
+        localStorage.removeItem('admin_auth');
         window.location.href = '/login';
     });
 });

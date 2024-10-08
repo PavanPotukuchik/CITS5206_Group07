@@ -130,7 +130,7 @@ $(document).ready(function() {
 
     function downloadFile(fileId, fileName, originalName) {
         const link = document.createElement('a');
-        link.href = `http://127.0.0.1:8090/files/files/${fileId}/${fileName}`;
+        link.href = `http://127.0.0.1:8090/api/files/files/${fileId}/${fileName}`;
         link.download = originalName;
         document.body.appendChild(link);
         link.click();
@@ -178,6 +178,7 @@ $(document).ready(function() {
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('admin_auth');
+        localStorage.removeItem('client_auth');
         window.location.href = '/login';
     });
 
