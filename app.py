@@ -1,22 +1,10 @@
-ChangeRequestForm
-ChangeRequestForm
 from flask import Flask, render_template,request,flash
-=======
 from flask import Flask, render_template
-=======
-kkglove
 from flask import Flask, render_template
 from datetime import datetime
 import requests
-=======
-ChangeRequestForm
 from flask import Flask, render_template,request,flash
-=======
 from flask import Flask, render_template
-main
-main
-main
-
 app = Flask(__name__)
 
 POCKETBASE_URL = "http://127.0.0.1:8090"
@@ -24,9 +12,6 @@ POCKETBASE_URL = "http://127.0.0.1:8090"
 @app.route('/')
 def index():
     return render_template('index.html')
-kkglove
-
-=======
 main
 
 @app.route('/login')
@@ -99,7 +84,6 @@ def change_request():
 @app.route('/client-change-request')
 def client_change_request():
     return render_template('client-change_Request.html')
-=======
 main
 
 @app.route('/documents')
@@ -153,7 +137,7 @@ def client_project_detail():
 @app.route('/status-update')
 def status_update():
     return render_template('status-update.html', active_page='project-form')
-=======
+
 @app.route('/help')
 def help():
     return render_template('help.html', active_page='help')
@@ -161,7 +145,6 @@ def help():
 @app.route('/project-detail-client')
 def project_detail_client():
     return render_template('project-detail-client.html', active_page='project')
-main
 
 if __name__ == '__main__':
     app.run(debug=True)
