@@ -127,10 +127,16 @@
                     const user = await response.json();
                     document.getElementById('username').innerText = user.username;
                     const avatarUrl = user.avatar 
+kkglove
                         ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
                         : "{{ url_for('static', filename='img/user.jpg') }}";
                     document.getElementById('user-avatar').src = avatarUrl;
 
+=======
+                            ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
+                            : "{{ url_for('static', filename='img/user.jpg') }}";
+                        document.getElementById('user-avatar').src = avatarUrl;
+main
                 } else {
                     console.error('Failed to load user details');
                     window.location.href = "/login";

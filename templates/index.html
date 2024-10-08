@@ -5,10 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-avatar.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <title>Admin Dashboards</title>
 </head>
 <body>
+
+
+<!-----------Top left section for displaying user profile picture and name dynamically--------->    
     <div class="container">
         <div class="sidebar">
             <div class="menu-btn">
@@ -16,20 +21,26 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img id="adminAvatar" alt="Admin Avatar">
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
+kkglove
                     <p class="name">this should be dynamic</p>
+=======
+                    <p class="name" id="adminUsername-1"></p>
+main
                 </div>
             </div>
             
-            {% include 'menu.html' %}
-
+            {% include 'menu.html' %} <!--Side menu on the left, "help" and "logout" button-->
         </div>
+<!-------------------------------------Dashboard display area----------------------------------------------->            
+
         <div class="main-content">
             <div class="content-area">
                 <div class="card">
+kkglove
                     <h2>Welcome to the Admin Dashboard, username!</h2>
                     <p>Select an option from the menu to get started.</p>
                 </div>
@@ -46,15 +57,79 @@
 
                 <div class="card">
                     To dos:     
+=======
+                    <h2>Welcome to the Admin Dashboard, <span class="name" id="adminUsername-2"></span></h2>
+                    <p>Select an option from the menu to get started.</p>
+                </div>
+
+                <div class="card">
+                <!-- <p><span id="totalUsersCount"></span></p>
+                <p><span id="newUsersCount"></span></p> -->
+
+                <table>
+                    <!-- Table Header -->
+                    <tr>
+                        <th>Total Users</th>
+                        <th>New Users Today</th>
+                        <th>Total Projects</th>
+                        <th>In Progress</th>
+                        <th>Completed</th>
+                        <th>On Hold</th>
+                    </tr>
+                    
+                    <!-- Table Rows -->
+                    <tr>
+                        <td id="totalUsersCount"></td>
+                        <td id="newUsersCount"></td>
+                        <td id="totalProjectsCount"></td>
+                        <td id="inProgressCount"></td>
+                        <td id="completedCount"></td>
+                        <td id="onHoldCount"></td>      
+                    </tr>
+                 
+                </table>
+                </div>
+
+                <div class="chart-wrapper">
+
+                <div id="chart_div" style="width: 400px; height: 300px;"></div>
+                <div id="chart_div-2" style="width: 400px; height: 300px;"></div>
+
+                </div>
+                <div class="card">
+                <!-- Total Projects: In progress projects/ finished projects  -->
+                 <!--<p id="totalProjectsCount">Total Projects: Loading...</p>
+                <p id="inProgressCount">In Progress: Loading...</p>
+                <p id="completedCount">Completed: Loading...</p>
+                <p id="onHoldCount">On Hold: Loading...</p> -->
+                </div>
+
+                <div class="card">
+                    To dos: placeholder for reply to changerequest
+main
                 </div>
             </div>
         </div>
     </div>
+
+
+<!---------------------------Javascripts------------------------------------------------------>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+kkglove
     <script src="{{ url_for('static', filename='js/data-dashboard.js') }}"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+=======
+    <script src="{{ url_for('static', filename='js/user-dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/project-dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-avatar.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<!---------------------------Javascripts for logout------------------------------------------------------>
+main
     <script>
         const authData = localStorage.getItem('admin_auth');
         if (!authData) {

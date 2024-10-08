@@ -216,6 +216,224 @@
             </div>
         </div>
     </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Project Details</title>
+    <style>
+        #backButton {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #backButton:hover {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .card p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .card p strong {
+            flex-basis: 150px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card p span {
+            flex-grow: 1;
+            padding: 8px 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            max-width: 700px; 
+            word-wrap: break-word; 
+            overflow: hidden;
+            white-space: pre-wrap;
+        }
+
+        .card .features {         
+            padding: 8px 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .card-content {
+            display: flex;
+            align-items: flex-start; 
+            gap: 20px; 
+        }
+
+        .details-container {
+            display: flex;
+            align-items: flex-start; 
+        }
+
+        .details {
+            padding-top: 10px;
+            flex: 1; 
+            max-width: 70%; 
+        }
+
+        .details td {
+            padding: 14px 30px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column; 
+            gap: 10px; 
+            align-items: flex-start; 
+            padding-left: 130px;
+        }
+
+        /* Circular button styling */
+        .button-group button {
+            width: 98px;
+            height: 98px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            color: gray;
+            border: none;
+            cursor: pointer;
+            font-size: 17px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-group button:hover {
+            background-color: #333;
+        }
+
+        .button-group button:focus {
+            outline: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .button-group {
+                padding-left: 0;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .button-group button {
+                width: 80px;
+                height: 80px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Client</p>
+                    <p class="name" id="username">Loading...</p>
+                </div>
+            </div>
+            {% include 'client_menu.html' %}
+        </div>
+        <div class="main-content">
+            <div class="content-area">
+                <div class="card">
+                    <button id="backButton">
+                        <i class="ph-bold ph-arrow-left"></i>
+                    </button>
+                    <h2>Project Details</h2>
+                    
+                    <!-- Flex container for details and buttons -->
+                    <div class="card-content">
+                        <!-- Flex container for details and buttons -->
+                        <div class="details-container">
+                            <div class="details">
+                                <table>
+                                    <tr>
+                                        <td><strong>Project ID:</strong></td>
+                                        <td id="projectId"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Project Name:</strong></td>
+                                        <td id="projectName"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Status:</strong></td>
+                                        <td id="projectStatus"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Created On:</strong></td>
+                                        <td id="createdDate"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Last Updated:</strong></td>
+                                        <td id="updatedDate"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Description:</strong></td>
+                                        <td id="description"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Features:</strong></td>
+                                        <td id="features"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <script>
         const API_URL = 'http://127.0.0.1:8090';
@@ -242,6 +460,87 @@
                         ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
                         : "{{ url_for('static', filename='img/user.jpg') }}";
                     document.getElementById('user-avatar').src = avatarUrl;
+                } else {
+                    console.error('Failed to load user details');
+                    window.location.href = "/login";
+                }
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        }
+
+        async function fetchProjectDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('projectId');
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+
+            if (!authData || !authData.token) {
+                window.location.href = "/login";
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/collections/project/records/${projectId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authData.token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const project = await response.json();
+
+                    document.getElementById('projectId').textContent = project.id;
+                    document.getElementById('projectName').textContent = project.projectName;
+                    document.getElementById('projectStatus').textContent = project.projectStatus;
+                    document.getElementById('createdDate').textContent = new Date(project.created).toLocaleDateString();
+                    document.getElementById('updatedDate').textContent = new Date(project.updated).toLocaleDateString();
+                    document.getElementById('description').textContent = project.description;
+                    document.getElementById('features').textContent = project.features;
+
+                } else {
+                    console.error('Failed to fetch project details');
+                }
+            } catch (error) {
+                console.error('Error fetching project details:', error);
+            }
+        }
+
+        document.getElementById('backButton').addEventListener('click', () => {
+        window.location.href = '/client-projects';
+    });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserDetails();
+            fetchProjectDetails();
+        });
+    </script>
+</body>
+</html>
+    
+
+    <script>
+        const API_URL = 'http://127.0.0.1:8090';
+
+        async function loadUserDetails() {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            if (!authData || !authData.token) {
+                window.location.href = "/login";
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/collections/users/records/${authData.record.id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authData.token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    const user = await response.json();
+                    document.getElementById('username').innerText = user.username;
                 } else {
                     console.error('Failed to load user details');
                     window.location.href = "/login";
