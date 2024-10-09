@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/pocketbase@0.8.0/dist/pocketbase.umd.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/client.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Client Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Client</p>
+                    <p class="name">Jane Doe</p>
+                </div>
+            </div>
+            
+            {% include 'client_menu.html' %}
+
+        </div>
+
+        <div class="main-content">
+            <div class="content-area">
+                <div class="card">
+                    <h1>Answer the Questions</h1>
+
+                    <!-- Form to submit answers, dynamically generated in JavaScript -->
+                    <form id="questionForm" method="POST">
+                        <!-- Questions will be dynamically inserted here -->
+                        <div id="questionContainer"></div>
+
+                        <button type="submit" class="add-client-button">Submit Answers</button>
+                    </form>
+
+                    <script>
+                        // Initialize PocketBase client
+                        const pb = new PocketBase('https://five206pocketbase.onrender.com'); 
+
+                        // Fetch questions from the 'allQuestion' collection and display them in the form
+                        async function fetchQuestions() {
+                            try {
+                                const questions = await pb.collection('allQuestion').getFullList();
+                                const questionContainer = document.getElementById('questionContainer');
+
+                                // Loop through the questions and create the form inputs based on inputType
+                                questions.forEach(question => {
+                                    const div = document.createElement('div');
+                                    div.className = "question-card"; // Assign class name for styling
+
+                                    // Add question label
+                                    const label = document.createElement('label');
+                                    label.setAttribute('for', `question_${question.id}`);
+                                    label.innerText = question.question;
+
+                                    const brAfterQuestion = document.createElement('br');
+
+                                    // Add the input field based on input type
+                                    let input;
+                                    if (question.inputType === 'text') {
+                                        input = document.createElement('input');
+                                        input.setAttribute('type', 'text');
+                                        input.setAttribute('id', `question_${question.id}`);
+                                        input.setAttribute('name', question.id);
+                                        input.required = true;
+                                        input.classList.add('input-class');
+                                    } else if (question.inputType === 'number') {
+                                        input = document.createElement('input');
+                                        input.setAttribute('type', 'number');
+                                        input.setAttribute('id', `question_${question.id}`);
+                                        input.setAttribute('name', question.id);
+                                        input.required = true;
+                                        input.classList.add('input-class');
+                                    } else if (question.inputType === 'yesNo') {
+                                        input = document.createElement('div');
+                                        input.innerHTML = `
+                                            <input type="radio" id="question_${question.id}_yes" name="${question.id}" value="Yes"> Yes
+                                            <input type="radio" id="question_${question.id}_no" name="${question.id}" value="No"> No
+                                        `;
+                                        input.classList.add('input-class');
+                                    } else if (question.inputType === 'date') {
+                                        input = document.createElement('input');
+                                        input.setAttribute('type', 'date');
+                                        input.setAttribute('id', `question_${question.id}`);
+                                        input.setAttribute('name', question.id);
+                                        input.required = true;
+                                        input.classList.add('input-class');
+                                    } else if (question.inputType === 'upload') {
+                                        input = document.createElement('input');
+                                        input.setAttribute('type', 'file');
+                                        input.setAttribute('id', `question_${question.id}`);
+                                        input.setAttribute('name', question.id);
+                                        input.required = true;
+                                    }
+
+                                    // Append label and input to the div
+                                    div.appendChild(label);
+                                    div.appendChild(brAfterQuestion);
+                                    div.appendChild(input);
+
+                                    // Append the completed question card to the container
+                                    questionContainer.appendChild(div);
+
+                                    const brAfterDiv = document.createElement('br');
+                                    questionContainer.appendChild(brAfterDiv);
+                                });
+                            } catch (error) {
+                                console.error('Error fetching questions:', error);
+                            }
+                        }
+
+                        // Call the function to fetch and display the questions
+                        fetchQuestions();
+
+                        // Handle form submission
+                        document.getElementById('questionForm').addEventListener('submit', async function(event) {
+                            event.preventDefault();
+
+                            // Gather the answers
+                            const formData = new FormData(event.target);
+                            const answers = {};
+
+                            formData.forEach((value, key) => {
+                                answers[key] = value;
+                            });
+
+                            // Send the answers back to PocketBase by updating the 'answer' field of the corresponding question
+                            try {
+                                for (const [questionId, answer] of Object.entries(answers)) {
+                                    await pb.collection('allQuestion').update(questionId, { answer });
+                                }
+
+                                alert('Answers submitted successfully!');
+                            } catch (error) {
+                                console.error('Error submitting answers:', error);
+                            }
+                        });
+                        // Handle form submission
+                        document.getElementById('questionForm').addEventListener('submit', async function(event) {
+                            event.preventDefault(); // Prevent the default form submission
+
+                            // Gather the answers
+                            const formData = new FormData(event.target);
+                            const answers = {};
+
+                            formData.forEach((value, key) => {
+                                answers[key] = value; // Store each answer by question ID
+                            });
+
+                            try {
+                                // Update the answers in the same PocketBase collection for each question
+                                for (const [questionId, answer] of Object.entries(answers)) {
+                                    await pb.collection('allQuestion').update(questionId, { answer });
+                                }
+
+                                // Show a success pop-up
+                                alert('Answers submitted successfully!');
+
+                                // Redirect to the main menu page after the alert
+                                window.location.href = "{{ url_for('client_dashboard') }}"; 
+
+                            } catch (error) {
+                                console.error('Error submitting answers:', error);
+                                alert('There was an error submitting your answers. Please try again.');
+                            }
+                        });
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/client.js') }}"></script>
+</body>
+</html>

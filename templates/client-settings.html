@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/client.css') }}" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img id="user-avatar" src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Client</p>
+                    <p class="name" id="username">Loading...</p>
+                </div>
+            </div>
+            
+            {% include 'client_menu.html' %}
+            
+        </div>
+        <div class="main-content">
+            <div class="content-area">
+                <div class="card">
+                    <h2>Account Information</h2>
+                    <div class="info-item">
+                        <label for="avatar">Avatar:</label>
+                        <img id="avatarPreview" src="{{ url_for('static', filename='img/user.jpg') }}" alt="User Avatar" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" />
+                    </div>
+                    <div class="info-item">
+                        <label for="name">Name:</label>
+                        <span id="nameDisplay">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <label for="email">Email:</label>
+                        <span id="emailDisplay">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <label for="username">Username:</label>
+                        <span id="usernameDisplay">Loading...</span>
+                    </div>
+                    <div class="created-time" id="createdTime">Loading...</div>
+                    <button id="modifyButton">Modify</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://five206pocketbase.onrender.com';
+
+        async function loadUserDetails() {
+            const authData = JSON.parse(localStorage.getItem('client_auth'));
+            if (authData && authData.record && authData.token) {
+                try {
+                    const response = await fetch(`${API_URL}/api/collections/users/records/${authData.record.id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${authData.token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        const user = await response.json();
+                        document.getElementById('username').innerText = user.username;
+                        document.getElementById('nameDisplay').innerText = user.name || 'N/A';
+                        document.getElementById('emailDisplay').innerText = user.email || 'N/A';
+                        document.getElementById('usernameDisplay').innerText = user.username || 'N/A';
+                        document.getElementById('createdTime').innerText = 'Account created on: ' + new Date(user.created).toLocaleDateString();
+
+                        const avatarUrl = user.avatar 
+                            ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
+                            : "{{ url_for('static', filename='img/user.jpg') }}";
+                        document.getElementById('avatarPreview').src = avatarUrl;
+                        document.getElementById('user-avatar').src = avatarUrl;
+                        localStorage.setItem('username', user.username);
+                        localStorage.setItem('avatar', avatarUrl);
+                    } else {
+                        console.error('Failed to load user details');
+                    }
+                } catch (error) {
+                    console.error('Error fetching user details:', error);
+                }
+            } else {
+                console.error('User is not authenticated');
+            }
+        }
+
+        document.getElementById('modifyButton').addEventListener('click', function() {
+            window.location.href = '/modify-settings';
+        });
+
+        window.onload = loadUserDetails;
+    </script>
+</body>
+</html>

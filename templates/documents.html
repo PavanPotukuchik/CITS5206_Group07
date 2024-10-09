@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/documents.css') }}" />
+
+    <title>Documents</title>
+
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img id="adminAvatar" alt="Admin Avatar">
+                </div>
+                <div class="user-details">
+                    <p class="title">Admin</p>
+                    <p class="name" id="adminUsername-1"></p>
+                </div>
+            </div>
+            {% include 'menu.html' %}
+        </div>
+        <div class="main-content">
+            <div class="content-area">
+                <button id="backButton">
+                    <i class="ph-bold ph-arrow-left"></i>
+                </button>
+                <div class="card" id="userListCard">
+                    <h2>Users</h2>
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userList">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card" id="filesCard" style="display: none;">
+                    <h2>Uploaded Files</h2>
+                    <ul id="fileList"></ul>
+                    <p id="message"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                Are you sure you want to delete this file?
+            </div>
+            <div class="modal-footer">
+                <button id="confirmDeleteButton" class="btn-confirm">Delete</button>
+                <button id="cancelDeleteButton" class="btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/documents.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-avatar.js') }}"></script>
+</body>
+</html>

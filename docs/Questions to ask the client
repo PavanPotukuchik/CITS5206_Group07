@@ -1,0 +1,36 @@
+1.	What is the company about? -- rockingham web services, design website for the client. What do they sell, what is their services, 
+2.	Please give a detail on the Project and technology you are expecting us to use?--nextjs(framework), client portal, web app, appsheet, the client suggested that we can use appsheet to start and then start coding, coding cleanly.
+3.	As part of our deliverable, we are required to submit a detail on what the project is about and additional details like a Functional Specification Document, are you expecting us to deliver it any format, if yes some template would help—we are reading it. UML diagram
+4.	Pavan has a template from his friend, lists of questions, will be shared in the team
+5. What softwares to be used - which technologies - what framework - will we be using only free ware softwares ? 
+6. If we use data base which data base we will be using ?
+7. Will the clients of the company (rockingham web services) also be using the application - if yes - this website may needs to be hosted on a domain server - will the company make the deplopyments on the domain server ?
+
+What is the project about 
+Similar JIRA/Hubspot but minimising functions: reduced the back and forth between clients and the business
+The problem to solve: collecting cilents information and requesting docs from clients
+
+Main functions:
+--The process of the website
+--documents from clients
+--reminders for clients
+--client send requests
+
+Currently solution: Goolge doc and Drive
+
+What the client planing to do to sovle the questions:
+Timeline: 8 weeks in total, we add 2 weeks, 1 week in the beginning we prepare, another week at the end to summarise everything. 
+
+Step 1: learning appsheet and understand capabilitis and limitations
+Step2: UML, technical specifications
+Step3: developing and coding
+
+What is content management system
+--client portal website, not static
+
+Git?
+
+
+
+
+

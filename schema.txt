@@ -1,0 +1,6 @@
+files ->
+-user(single user relation)
+-file (file)
+-filename (text)
+-description (text)
+System fields: id, created, updated

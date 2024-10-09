@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Add Questionneries</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Admin</p>
+                    <p class="name">Kartik</p>
+                </div>
+            </div>
+            {% include 'menu.html' %}
+        </div>
+        <div class="main-content">
+            <div class="content-area">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2>Add questions</h2>
+                        <button type="button" class="add-button" id="submitAllQuestions">Finish</button>
+                    </div>
+                
+                    <div class = 'question-card'>
+                        <h3>Select Question:</h3>                        
+                        <div id="basicQuestionsContainer">
+                        </div>
+                        <button type="submit" class="add-client-button" id="addBasicQuestions">Add question</button>
+
+                    </div>
+                    <br>
+                    <div class="question-card">
+                        <h3>Or Enter a Custom Question:</h3>                        
+                        <form id="questionForm" class="add-form">
+                            <div class="form-group">
+                                <h3>Enter a question:</h3>
+                                <textarea class="input-class" rows = '4' cols="50" id="question" name="question" required> </textarea><br>
+                            </div>
+                            <div class="form-group">
+                                <h4>Select an input type for the question:</h4>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inputType" value="text" required> Text
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inputType" value="upload" required> Upload
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inputType" value="yesNo" required> Yes or No
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inputType" value="number" required> Number
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inputType" value="date" required> Date
+                                </label><br>
+                            </div>
+                            <button type="submit" class="add-client-button">Add question</button>
+                        </form>
+                    </div>
+                    <br>
+                        <div id="resultList">
+                            <ul id="submittedQuestions"></ul> 
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/pocketbase@0.8.0/dist/pocketbase.umd.js"></script>
+
+    <script>
+    const pb = new PocketBase('https://five206pocketbase.onrender.com');
+
+    // Load basic questions from PocketBase collection
+    async function loadBasicQuestions() {
+        try {
+            const basicQuestions = await pb.collection('basicQuestions').getFullList();
+            const container = document.getElementById('basicQuestionsContainer');
+            
+            basicQuestions.forEach(question => {
+                const div = document.createElement('div');
+                div.classList.add('basic-question-item');
+                div.innerHTML = `
+                    <label>
+                        <input type="checkbox" class="basic-question" value="${question.id}" data-question="${question.question}" data-type="${question.type}">
+                        ${question.question} (Type: ${question.type})<br><br>
+                    </label>`;
+                container.appendChild(div);
+            });
+            
+        } catch (error) {
+            console.error('Error fetching basic questions:', error);
+        }
+    }
+
+    // Add selected basic questions to the list
+    document.getElementById('addBasicQuestions').addEventListener('click', function() {
+        const selectedBasicQuestions = [];
+
+        // Collect selected basic questions
+        document.querySelectorAll('.basic-question:checked').forEach((checkbox) => {
+            selectedBasicQuestions.push({
+                question: checkbox.getAttribute('data-question'),
+                inputType: checkbox.getAttribute('data-type')
+            });
+        });
+
+        // Append selected basic questions to the submitted questions list
+        if (selectedBasicQuestions.length > 0) {
+            selectedBasicQuestions.forEach(questionData => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <div class='question-card'>
+                        <h3>${questionData.question}</h3>
+                        Input Type: ${questionData.inputType}<br>
+                    </div><br>`;
+                document.getElementById('submittedQuestions').appendChild(listItem);
+            });
+
+            // Uncheck all selected checkboxes after adding to the list
+            document.querySelectorAll('.basic-question:checked').forEach((checkbox) => {
+                checkbox.checked = false;
+            });
+
+            alert("Selected basic questions added to the list.");
+        } else {
+            alert("Please select at least one basic question.");
+        }
+    });
+
+    // Add custom question to the list when form is submitted
+    document.getElementById('questionForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the custom question and input type
+        const questionInput = document.getElementById('question').value;
+        const selectedInputType = document.querySelector('input[name="inputType"]:checked').value;
+
+        if (questionInput && selectedInputType) {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <div class='question-card'>
+                    <h3>${questionInput}</h3>
+                    Input Type: ${selectedInputType}<br>
+                </div><br>`;
+            document.getElementById('submittedQuestions').appendChild(listItem);
+
+            // Clear the form after submission
+            document.getElementById('questionForm').reset();
+
+            alert("Custom question added to the list.");
+        } else {
+            alert("Please enter a question and select an input type.");
+        }
+    });
+
+    // Load basic questions on window load
+    window.onload = loadBasicQuestions;
+
+    const projectId = localStorage.getItem('projectId');
+
+    // Add event listener for Submit All Questions button
+    document.getElementById('submitAllQuestions').addEventListener('click', async function() {
+        const allQuestions = [];
+
+        // Collect all questions from the submitted questions list
+        document.querySelectorAll('#submittedQuestions li .question-card').forEach((listItem) => {
+            const question = listItem.querySelector('h3').innerText;
+            const inputType = listItem.innerHTML.match(/Input Type: (\w+)/)[1]; // Extract the input type
+            
+            allQuestions.push({
+                question: question,
+                inputType: inputType,
+                project_id: localStorage.getItem('projectId') 
+            });
+        });
+
+        if (allQuestions.length > 0) {
+            try {
+                // Submit each question to the PocketBase collection 'question'
+                for (const questionData of allQuestions) {
+                    await pb.collection('allQuestion').create({
+                        question: questionData.question,
+                        inputType: questionData.inputType,
+                        project_id: questionData.project_id
+                    });
+                }
+
+                // Show success message and clear the list
+                alert("All questions have been successfully submitted!");
+                document.getElementById('submittedQuestions').innerHTML = '';  // Clear the list after submission
+                window.location.href = "{{url_for('project_list')}}";
+
+
+            } catch (error) {
+                console.error('Error submitting questions:', error);
+            }
+        } else {
+            alert("No questions to submit.");
+        }
+    });
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/add-client.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
