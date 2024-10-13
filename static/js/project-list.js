@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     async function fetchProject() {
         try {
-            const response = await fetch('https://five206pocketbase.onrender.com/api/collections/project/records?expand=clientName', {
+            const response = await fetch('https://five206pocketbase.onrender.com/api/collections/project/records?expand=userId', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ $(document).ready(function() {
 
                 projectData.items.forEach(project => {
                     const row = document.createElement('tr');
-                    const clientName = project.expand?.clientName?.username || 'Unknown User';
+                    const clientName = project.expand?.userId?.name || 'Unknown User';
 
                     row.innerHTML = `
                         <td>${project.id}</td>

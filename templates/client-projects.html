@@ -147,7 +147,7 @@
             }
 
             try {
-                const response = await fetch(`${API_URL}/api/collections/project/records?filter=(clientName='${authData.record.id}')`, {
+                const response = await fetch(`${API_URL}/api/collections/project/records?filter=(userId='${authData.record.id}')`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${authData.token}`,
