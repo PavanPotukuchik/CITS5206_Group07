@@ -51,6 +51,10 @@
                                 <input class="input-class" type="text" id="companyName" required>
                             </div>
                             <div class="form-group">
+                                <label for="avatar">Upload Client Avatar</label>
+                                <input class="input-class" type="file" id="avatar" accept="image/*">
+                            </div>
+                            <div class="form-group">
                                 <label for="password">Enter Password</label>
                                 <input class="input-class" type="password" id="password" required>
                             </div>
@@ -75,25 +79,46 @@
         document.getElementById('addClientForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const clientName = document.getElementById('name').value;
-            const clientEmail = document.getElementById('email').value;
-            const contactNumber = document.getElementById('contactNumber').value;
-            const companyName = document.getElementById('companyName').value;
-            const password = document.getElementById('password').value;
+            const username = document.getElementById('name').value;
+            const Email = document.getElementById('email').value;
+            const contactnumber = document.getElementById('contactNumber').value;
+            const companyname = document.getElementById('companyName').value;
+            const userpassword = document.getElementById('password').value;
+            const avatarFile = document.getElementById('avatar').files[0]; 
+            const reenteredPassword = document.getElementById('reenterPassword').value;
 
-            const data = {
-                "clientName": clientName,
-                "clientEmail": clientEmail,
-                "contactNumber": contactNumber,
-                "companyName": companyName,
-                "password": password
+
+            if (userpassword !== reenteredPassword) {
+                alert("Passwords do not match. Please try again.");
+                console.log();
+                return;
+            }
+
+            if (userpassword.length < 8) {  // Check if password is less than 8 characters
+                alert("Password must be at least 8 characters long.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('Username', username);
+            formData.append('name', username);
+            formData.append('Email', Email);
+            formData.append('contactnumber', contactnumber);
+            formData.append('companyname', companyname);
+            formData.append('password', userpassword);
+
+            if (avatarFile) {
+                formData.append('avatar', avatarFile);
             }
 
             try {
                 const record = await pb.collection('users').create(data);
+                alert('Client added successfully!');
+                document.getElementById('addClientForm').reset();
 
             } catch (error) {
-                console.log('ERROR');
+                console.log('ERROR:', error);
+                alert('There was an error adding the client. Please try again.');
             }
         });
     </script>
