@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     async function fetchClients() {
         try {
-            const response = await fetch('http://127.0.0.1:8090/api/collections/users/records', {
+            const response = await fetch('https://five206pocketbase.onrender.com/api/collections/users/records', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -16,14 +16,13 @@ $(document).ready(function() {
 
             if (response.ok) {
                 const clientsData = await response.json();
-
                 const clientsTableBody = document.getElementById('clientsTableBody');
 
                 clientsData.items.forEach(client => {
                     const row = document.createElement('tr');
 
                     row.innerHTML = `
-                        <td><img src="http://127.0.0.1:8090/api/files/${client.collectionId}/${client.id}/${client.avatar}" alt="Avatar" class="avatar-img"></td>
+                        <td><img src="https://five206pocketbase.onrender.com/api/files/${client.collectionId}/${client.id}/${client.avatar}" alt="Avatar" class="avatar-img"></td>
                         <td>${client.username}</td>
                         <td>${client.email}</td>
                         <td>${new Date(client.created).toLocaleDateString()}</td>
@@ -45,7 +44,6 @@ $(document).ready(function() {
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('admin_auth');
-        localStorage.removeItem('client_auth');
         window.location.href = "/login";
     });
 });

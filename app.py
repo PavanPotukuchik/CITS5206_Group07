@@ -1,16 +1,8 @@
-from flask import Flask, render_template,request,flash
-
 from flask import Flask, render_template
-
-from flask import Flask, render_template
-from datetime import datetime
-from flask import Flask, render_template,request,flash
-from flask import Flask, render_template
-
 
 app = Flask(__name__)
 
-POCKETBASE_URL = "http://127.0.0.1:8090"
+POCKETBASE_URL = "https://five206pocketbase.onrender.com/"
 
 @app.route('/')
 def index():
@@ -36,17 +28,10 @@ def add_client():
 def project_list():
     return render_template('project-list.html', active_page='project')
 
-@app.route('/project-form')   #,methods=['GET', 'POST']
+@app.route('/project-form') 
 def project_form():
     return render_template('project-form.html', active_page='project-form')
 
-@app.route('/change-request')
-def change_request():
-    return render_template('change_Request.html')
-
-@app.route('/client-change-request')
-def client_change_request():
-    return render_template('client-change_Request.html')
 
 @app.route('/documents')
 def documents():
@@ -77,8 +62,8 @@ def modify_settings():
     return render_template('modify-settings.html', active_page='settings')
 
 @app.route('/question-form')
-def question_form():   #project_id
-    return render_template('question-form.html', active_page = 'project-form') #,project_id=project_id
+def question_form():
+    return render_template('question-form.html', active_page = 'project-form')
 
 @app.errorhandler(404)
 def page_not_found(e): 
@@ -87,17 +72,6 @@ def page_not_found(e):
 @app.route('/project-detail')
 def project_detail():
     return render_template('project-detail.html', active_page='project')
-
-@app.route('/client-project-detail')
-def client_project_detail():
-    project_id = request.args.get('projectId')
-    if project_id:
-        return render_template('client-project-detail.html', project_id=project_id,active_page='project')
-    return render_template('client-project-detail.html', active_page='project')
-
-@app.route('/status-update')
-def status_update():
-    return render_template('status-update.html', active_page='project-form')
 
 @app.route('/help')
 def help():

@@ -243,7 +243,7 @@
                 </div>
                 <div class="user-details">
                     <p class="title">Client</p>
-                    <p class="name" id="username">Loading...</p>
+                    <p class="name" id="username"> </p>
                 </div>
             </div>
             
@@ -285,7 +285,7 @@
     </div>
 
     <script>
-        const API_URL = 'http://127.0.0.1:8090';
+        const API_URL = 'https://five206pocketbase.onrender.com';
 
         async function loadUserDetails() {
             const authData = JSON.parse(localStorage.getItem('client_auth'));
@@ -308,6 +308,8 @@
                             ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
                             : "{{ url_for('static', filename='img/user.jpg') }}";
                         document.getElementById('user-avatar').src = avatarUrl;
+                        localStorage.setItem('username', user.username);
+                        localStorage.setItem('avatar', avatarUrl);
 
                     } else {
                         console.error('Failed to load user details');

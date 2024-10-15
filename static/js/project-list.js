@@ -1,13 +1,12 @@
 $(document).ready(function() {
     const authData = localStorage.getItem('admin_auth');
-
     if (!authData) {
         window.location.href = "/login";
     }
 
     async function fetchProject() {
         try {
-                const response = await fetch('http://127.0.0.1:8090/api/collections/project/records?expand=clientid', {
+            const response = await fetch('https://five206pocketbase.onrender.com/api/collections/project/records?expand=userId', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -19,19 +18,17 @@ $(document).ready(function() {
                 const projectData = await response.json();
                 const projectTableBody = document.getElementById('projectTableBody');
 
-                console.log(projectData);                
-
                 projectData.items.forEach(project => {
                     const row = document.createElement('tr');
-                    const clientName = project.expand?.clientid?.name || 'Unknown User';
+                    const clientName = project.expand?.userId?.name || 'Unknown User';
 
                     row.innerHTML = `
                         <td>${project.id}</td>
                         <td>${project.projectName}</td>
                         <td>${project.projectStatus}</td>
-                        <td>${clientName}</td> 
                         <td>${new Date(project.created).toLocaleDateString()}</td>
-                        <td>${new Date(project.updated).toLocaleDateString()}</td>                        
+                        <td>${new Date(project.updated).toLocaleDateString()}</td>
+                        <td>${clientName}</td> 
                     `;
 
                     row.addEventListener('click', () => {
@@ -56,7 +53,6 @@ $(document).ready(function() {
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('admin_auth');
-        localStorage.removeItem('client_auth');
-        window.location.href = '/login';
+        window.location.href = "/login";
     });
 });

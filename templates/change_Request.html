@@ -7,8 +7,6 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ChangReq.css') }}" />
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/datatables.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" /> -->
     <title>Change Request</title>
 </head>
 <body>
@@ -34,7 +32,8 @@
                 <div class="card">
                     <div class="inner-card">
                         <h1>Change Request</h1>
-                        <form id="addChangeRequest" class="change-form">                            
+                        <form id="addChangeRequest" class="change-form">
+                            
                             <div class="form-group">
                                 <label for="project-name">Project Name *</label>
                                 <!-- <textarea id="project-name" name="project-name" rows="1" placeholder="project-name"></textarea> -->
@@ -94,14 +93,5 @@
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="{{ url_for('static', filename='js/change-req.js') }}"></script>
     <script src="https://unpkg.com/pocketbase@0.8.0/dist/pocketbase.umd.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <!-- <script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script> -->
-    <script type="text/javascript">
-        (function(){
-            emailjs.init({
-                publicKey: "wQXraNYw3ceDG_w_E",
-            });
-        })();
-    </script>
 </body>
 </html>

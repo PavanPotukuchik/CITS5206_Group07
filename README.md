@@ -161,10 +161,6 @@ To stop the Flask app, press `Ctrl+C` in the terminal.
 - If there are issues with PocketBase API requests, check if the PocketBase server is running and that the API endpoint URLs are correct.
 
 ## License
-kkglove
-This project is licensed under the MIT License.
-=======
 This project is created by Group-7 for CITS5206
-main
 
 

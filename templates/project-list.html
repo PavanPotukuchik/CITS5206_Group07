@@ -16,11 +16,11 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img id="adminAvatar" alt="Admin Avatar">
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
-                    <p class="name">Group-07</p>
+                    <p class="name" id="adminUsername-1"></p>
                 </div>
             </div>
             {% include 'menu.html' %}
@@ -32,17 +32,17 @@
                     <table class="client-project-table">
                         <thead>
                             <tr>
-                                <th>Project ID</th>
-                                <th>Project Name</th>
-                                <th>Project Status</th>
-                                <th>Client Name</th>
+                                <th>projectID</th>
+                                <th>projectName</th>
+                                <th>projectStatus</th>
                                 <th>Created</th>
-                                <th>Updated</th>                                
+                                <th>Updated</th>
+                                <th>clientName</th>
                             </tr>
                         </thead>
                         <tbody id="projectTableBody">
                         </tbody>
-                    </table>                   
+                    </table>
                 </div>
             </div>
         </div>
@@ -51,5 +51,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/project-list.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-avatar.js') }}"></script>
 </body>
 </html>

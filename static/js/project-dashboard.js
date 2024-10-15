@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         async function fetchProjectStatusCounts() {
             try {
-                const response = await fetch('http://127.0.0.1:8090/api/collections/project/records', {
+                const response = await fetch('https://five206pocketbase.onrender.com/api/collections/project/records', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

@@ -157,11 +157,11 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img id="user-avatar" src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
                 </div>
                 <div class="user-details">
                     <p class="title">Client</p>
-                    <p class="name" id="username">Loading...</p>
+                    <p class="name" id="username"> </p>
                 </div>
             </div>
             {% include 'client_menu.html' %}
@@ -379,7 +379,7 @@
                 </div>
                 <div class="user-details">
                     <p class="title">Client</p>
-                    <p class="name" id="username">Loading...</p>
+                    <p class="name" id="username"> </p>
                 </div>
             </div>
             {% include 'client_menu.html' %}
@@ -436,7 +436,7 @@
     </div>
     
     <script>
-        const API_URL = 'http://127.0.0.1:8090';
+        const API_URL = 'https://five206pocketbase.onrender.com';
 
         async function loadUserDetails() {
             const authData = JSON.parse(localStorage.getItem('client_auth'));
@@ -456,10 +456,6 @@
                 if (response.ok) {
                     const user = await response.json();
                     document.getElementById('username').innerText = user.username;
-                    const avatarUrl = user.avatar 
-                        ? `${API_URL}/api/files/users/${user.id}/${user.avatar}` 
-                        : "{{ url_for('static', filename='img/user.jpg') }}";
-                    document.getElementById('user-avatar').src = avatarUrl;
                 } else {
                     console.error('Failed to load user details');
                     window.location.href = "/login";
@@ -521,7 +517,7 @@
     
 
     <script>
-        const API_URL = 'http://127.0.0.1:8090';
+        const API_URL = 'https://five206pocketbase.onrender.com';
 
         async function loadUserDetails() {
             const authData = JSON.parse(localStorage.getItem('client_auth'));

@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/datatables.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <title>Project Details</title>
     <style>
         #backButton {
@@ -62,13 +58,13 @@
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
             font-size: 1rem;
             color: #333;
-            max-width: 700px;
-            word-wrap: break-word;
+            max-width: 700px; 
+            word-wrap: break-word; 
             overflow: hidden;
             white-space: pre-wrap;
         }
 
-        .card .features {
+        .card .features {         
             padding: 8px 10px;
             background-color: #f0f0f0;
             border-radius: 5px;
@@ -77,48 +73,48 @@
             color: #333;
             line-height: 1.5;
         }
-
-
+        
+        
         .card-content {
             display: flex;
-            align-items: flex-start;
-            gap: 20px;
+            align-items: flex-start; 
+            gap: 20px; 
         }
 
         .details-container {
             display: flex;
-            align-items: flex-start;
+            align-items: flex-start; 
         }
 
         .details {
             padding-top: 10px;
-            flex: 1;
-            max-width: 70%;
+            flex: 1; 
+            max-width: 70%; 
         }
 
         .details td {
-            padding: 11px 30px;
+            padding: 14px 30px;
         }
 
         .button-group {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: flex-start;
+            flex-direction: column; 
+            gap: 10px; 
+            align-items: flex-start; 
             padding-left: 130px;
         }
 
 
         /* Circular button styling */
         .button-group button {
-            width: 110px;
-            height: 110px;
+            width: 98px;
+            height: 98px;
             border-radius: 50%;
             background-color: #f0f0f0;
             color: gray;
             border: none;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 17px;
             transition: background-color 0.3s ease;
             display: flex;
             align-items: center;
@@ -132,228 +128,94 @@
         .button-group button:focus {
             outline: none;
         }
-
-
-
-        .bg-info,
-        .bg-info>a {
-            color: #fff !important;
-        }
-
-        .bg-info {
-            background-color: #17a2b8 !important;
-        }
-        .bg-warning {
-            background-color: #e0e0e0 !important;
-            color:white;
-        }
-        .bg-success {
-            background-color: #28a745 !important;
-            color:white;
-            cursor: pointer;
-        }
-        
-        .small-box {
-            border-radius: .25rem;
-            box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);
-            display: block;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .small-box>.inner {
-            padding: 10px;
-        }
-        .small-box p {
-            color:#f0f0f0;
-        }
-
-        .small-box .icon {
-            color: rgba(0, 0, 0, .15);
-            z-index: 0;
-        }
-
-        .small-box>.small-box-footer {
-            background-color: rgba(0, 0, 0, .1);
-            color: rgba(255, 255, 255, .8);
-            display: block;
-            padding: 3px 0;
-            position: relative;
-            text-align: center;
-            text-decoration: none;
-            z-index: 10;
-        }
-        .small-box .icon>i.fa, .small-box .icon>i.fab, .small-box .icon>i.fad, 
-        .small-box .icon>i.fal, .small-box .icon>i.far, .small-box .icon>i.fas, 
-        .small-box .icon>i.ion {
-            font-size: 70px;
-            top: 20px;
-        }
-        .small-box .icon>i {
-            font-size: 90px;
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            /* transition: -webkit-transform .3s linear; */
-            transition: transform .3s linear;
-            transition: transform .3s linear, -webkit-transform .3s linear;
-        }
     </style>
 </head>
-
 <body>
-    <div class="">
+    <div class="container">
         <div class="sidebar">
             <div class="menu-btn">
                 <i class="ph-bold ph-caret-left"></i>
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img id="adminAvatar" alt="Admin Avatar">
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
-                    <p class="name">Kartik</p>
+                    <p class="name" id="adminUsername-1"></p>
                 </div>
             </div>
             {% include 'menu.html' %}
         </div>
         <div class="main-content">
-            <div class="content-area">
-                <div class="card">
-                    <button id="backButton">
-                        <i class="ph-bold ph-arrow-left"></i>
-                    </button>
-                    <h2>Project Details</h2>
-
-                    <!-- Flex container for details and buttons -->
-                    <div class="card-content">
-                        <!-- Flex container for details and buttons -->
-                        <div class="details-container">
-                            <div class="details">
-                                <table>
-                                    <tr>
-                                        <td><strong>Project ID:</strong></td>
-                                        <td id="projectId"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Project Name:</strong></td>
-                                        <td id="projectName"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Status:</strong></td>
-                                        <td id="projectStatus"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Created On:</strong></td>
-                                        <td id="createdDate"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Last Updated:</strong></td>
-                                        <td id="updatedDate"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Client Name:</strong></td>
-                                        <td id="clientName"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Description:</strong></td>
-                                        <td id="description"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Features:</strong></td>
-                                        <td id="features"></td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <!-- Buttons on the right -->
-                            <div class="button-group">
-                                <button id="clientInfoBtn">Client Info</button>
-                                <button id="resourcesBtn">Resources</button>
-                                <button id="requestFormBtn">Request Form</button>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="row">
-                        <div class="col-lg-3 col-6">
-                            <div id="divNotStarted">
-                                <div class="inner">
-                                    <h3>Not Started/Started</h3>
-                                    <p><label for="notstarted" id="lblNotStarted"></label></p>
-                                </div>
-                                <div class="icon">
-                                    <i id="iconNotStarted" class="ion ion-bag"></i>
-                                </div>
-                                <div class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-6">
-                            <div id="divPending">
-                                <div class="inner">
-                                    <h3>Pending</h3>
-                                    <p><label for="pending" id="lblPending"></label></p>
-                                </div>
-                                <div class="icon">
-                                    <i id="iconPending" class="ion ion-bag"></i>
-                                </div>
-                                <div class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-6">
-                            <div id="divActive">
-                                <div class="inner">
-                                    <h3>Active</h3>
-                                    <p><label for="active" id="lblActive"></label></p>
-                                </div>    
-                                <div class="icon">
-                                    <i id="iconActive" class="ion ion-bag"></i>
-                                </div>
-                                <div class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></div>
-                            </div>
-                        </div>                       
-
-                        <div class="col-lg-3 col-6">
-                            <div id="divPriority">
-                                <div class="inner">
-                                    <h3>Priority</h3>
-                                    <p><label for="priority" id="lblPriority"></label></p>
-                                </div>
-                                <div class="icon">
-                                    <i id="iconPriority" class="ion ion-bag"></i>
-                                </div>
-                                <div class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></div>
-                            </div>
-                        </div>                        
-                    </div>
-                    <br>
-                    <table id="tbl" class="table table-responsive table-condensed table-hover stripe display"
-                        style="border: 2px solid lightgrey; border-radius: 4px; width: 99%; margin-bottom: 0px !important; visibility:hidden;">
-                        <thead>
-                            <tr class="active">
-                                <th>Status</th>
-                                <th>Sub-Status</th>
-                                <th>Comments</th>
+    <div class="content-area">
+        <div class="card">
+            <button id="backButton">
+                <i class="ph-bold ph-arrow-left"></i>
+            </button>
+            <h2>Project Details</h2>
+            
+            <!-- Flex container for details and buttons -->
+            <div class="card-content">
+                <!-- Flex container for details and buttons -->
+                <div class="details-container">
+                    <div class="details">
+                        <table>
+                            <tr>
+                                <td><strong>Project ID:</strong></td>
+                                <td id="projectId"></td>
                             </tr>
-                        </thead>
-                    </table>
+                            <tr>
+                                <td><strong>Project Name:</strong></td>
+                                <td id="projectName"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Status:</strong></td>
+                                <td id="projectStatus"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Created On:</strong></td>
+                                <td id="createdDate"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Last Updated:</strong></td>
+                                <td id="updatedDate"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Client Name:</strong></td>
+                                <td id="clientName"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Description:</strong></td>
+                                <td id="description"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Features:</strong></td>
+                                <td id="features"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!-- Buttons on the right -->
+                    <div class="button-group">
+                        <button id="clientInfoBtn">Client Info</button>
+                        <button id="resourcesBtn">Resources</button>
+                        <button id="requestFormBtn">Request Form</button>
+                    
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
+</div>
 
+    </div>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/project-detail.js') }}"></script>    
+    <script src="{{ url_for('static', filename='js/project-detail.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-name.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-avatar.js') }}"></script>
 </body>
-
 </html>

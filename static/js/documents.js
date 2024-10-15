@@ -21,7 +21,7 @@ $(document).ready(function() {
 
     async function fetchUsers() {
         try {
-            const response = await fetch('http://127.0.0.1:8090/api/collections/users/records', {
+            const response = await fetch('https://five206pocketbase.onrender.com/api/collections/users/records', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ $(document).ready(function() {
         document.getElementById('userListCard').style.display = 'none';
 
         try {
-            const response = await fetch(`http://127.0.0.1:8090/api/collections/files/records?filter=(user='${userId}')`, {
+            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/files/records?filter=(user='${userId}')`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ $(document).ready(function() {
         li.className = 'file-item';
         li.innerHTML = `
             <div class="file-description">${file.description || 'No description'}</div>
-            <a href="http://127.0.0.1:8090/api/files/files/${file.id}/${file.file}" target="_blank" class="file-name">${file.filename}</a>
+            <a href="https://five206pocketbase.onrender.com/api/files/files/${file.id}/${file.file}" target="_blank" class="file-name">${file.filename}</a>
             <div class="file-actions">
                 <button class="delete-button" data-file-id="${file.id}">
                     <i class="ph ph-trash"></i> Delete
@@ -109,7 +109,7 @@ $(document).ready(function() {
 
     async function deleteFile(fileId) {
         try {
-            const response = await fetch(`http://127.0.0.1:8090/api/collections/files/records/${fileId}`, {
+            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/files/records/${fileId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${JSON.parse(authData).token}`
@@ -130,7 +130,7 @@ $(document).ready(function() {
 
     function downloadFile(fileId, fileName, originalName) {
         const link = document.createElement('a');
-        link.href = `http://127.0.0.1:8090/api/files/files/${fileId}/${fileName}`;
+        link.href = `https://five206pocketbase.onrender.com/files/files/${fileId}/${fileName}`;
         link.download = originalName;
         document.body.appendChild(link);
         link.click();
@@ -178,7 +178,6 @@ $(document).ready(function() {
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('admin_auth');
-        localStorage.removeItem('client_auth');
         window.location.href = '/login';
     });
 

@@ -244,12 +244,10 @@
                 </div>
                 <div class="user-details">
                     <p class="title">Client</p>
-                    <p class="name" id="username">Loading...</p>
+                    <p class="name" id="username"> </p>
                 </div>
             </div>
-            
             {% include 'client_menu.html' %}
-            
         </div>
 
         <div class="main-content">
@@ -291,7 +289,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/client.js') }}"></script>
     <script>
-        const API_URL = 'http://127.0.0.1:8090';
+        const API_URL = 'https://five206pocketbase.onrender.com';
         const FILE_COLLECTION = 'files';
         const messageElement = document.getElementById('message');
         const fileList = document.getElementById('fileList');

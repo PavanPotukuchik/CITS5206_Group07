@@ -3,25 +3,10 @@
         <p class="title">Main</p>
         <ul>
             <li class="{% if active_page == 'projects' %}active{% endif %}">
-                <a href="#">
+                <a href="{{ url_for('client_projects') }}">
                     <i class="icon ph-bold ph-folder"></i>
                     <span class="text">Projects</span>
-                    <i class="arrow ph-bold ph-caret-down"></i>
                 </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{{ url_for('client_projects') }}">
-                            <i class="icon ph-bold"></i>
-                            <span class="text">View Projects</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('client_change_request') }}">
-                            <i class="icon ph-bold"></i>
-                            <span class="text">Change Request</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li class="{% if active_page == 'files' %}active{% endif %}">
                 <a href="{{ url_for('client_files') }}">
@@ -38,7 +23,15 @@
                 <a href="{{ url_for('client_settings') }}">
                     <i class="icon ph-bold ph-gear"></i>
                     <span class="text">Settings</span>
+                    <i class="arrow ph-bold ph-caret-down"></i> <!-- Arrow icon for dropdown -->
                 </a>
+                <ul class="sub-menu"> 
+                    <li>
+                        <a href="{{ url_for('changePassword') }}">
+                            <span class="text">Change Password</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -60,3 +53,12 @@
         </li>
     </ul>
 </div>
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        localStorage.removeItem('client_auth');
+        localStorage.removeItem('username');
+        localStorage.removeItem('avatar');
+        window.location.href = '/login';
+    });
+</script>

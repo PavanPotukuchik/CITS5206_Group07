@@ -9,7 +9,6 @@
     <title>Add Client</title>
 </head>
 <body>
-    {% from "_formhelpers.html" import render_field %}
     <div class="container">
         <div class="sidebar">
             <div class="menu-btn">
@@ -22,7 +21,6 @@
                 <div class="user-details">
                     <p class="title">Admin</p>
                     <p class="name">Kartik</p>
-                    <p class="name" id="username">Loading...</p>
                 </div>
             </div>
             {% include 'menu.html' %}
@@ -37,23 +35,23 @@
                         <h2>Add Client</h2>
                         <form id="addClientForm" class="add-form">
                             <div class="form-group">
-                                <label for="companyName">Client User Name</label>
-                                <input class="input-class" type="text" id="companyName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Client Full Name</label>
+                                <label for="name">Enter Client Name</label>
                                 <input class="input-class" type="text" id="name" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Client Email</label>
+                                <label for="email">Enter Client Email</label>
                                 <input class="input-class" type="email" id="email" required>
                             </div>
                             <div class="form-group">
-                                <label for="contactNumber">Client Number</label>
+                                <label for="contactNumber">Enter Contact Number</label>
                                 <input class="input-class" type="tel" id="contactNumber" required>
-                            </div>                            
+                            </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
+                                <label for="companyName">Enter Company Name</label>
+                                <input class="input-class" type="text" id="companyName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Enter Password</label>
                                 <input class="input-class" type="password" id="password" required>
                             </div>
                             <div class="form-group">
@@ -61,21 +59,43 @@
                                 <input class="input-class" type="password" id="reenterPassword" required>
                             </div>
                             <button type="submit" class="add-client-button">Add client</button>
-                            <div role="alert" id="flashDiv">
-                                <label id="lblPass" class="modal-label"></label>
-                            </div>
                         </form>
                     </div>    
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://unpkg.com/pocketbase@0.8.0/dist/pocketbase.umd.js"></script>
 
     <script>
 
-        
+        const pb = new PocketBase('https://five206pocketbase.onrender.com');
+
+        document.getElementById('addClientForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const clientName = document.getElementById('name').value;
+            const clientEmail = document.getElementById('email').value;
+            const contactNumber = document.getElementById('contactNumber').value;
+            const companyName = document.getElementById('companyName').value;
+            const password = document.getElementById('password').value;
+
+            const data = {
+                "clientName": clientName,
+                "clientEmail": clientEmail,
+                "contactNumber": contactNumber,
+                "companyName": companyName,
+                "password": password
+            }
+
+            try {
+                const record = await pb.collection('users').create(data);
+
+            } catch (error) {
+                console.log('ERROR');
+            }
+        });
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/add-client.js') }}"></script>
