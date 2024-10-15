@@ -9,7 +9,7 @@ $(document).ready(function() {
     let clientId = ''; 
     async function fetchProjectDetails() {
         try {
-            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?expand=clientName`, {
+            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?expand=userId`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,8 +23,8 @@ $(document).ready(function() {
                 const project = data.items.find(item => item.id === projectId);
 
                 if (project) {
-                    clientId = project.clientName; 
-                    const clientName = project.expand?.clientName?.name || 'Unknown User';
+                    clientId = project.userId; 
+                    const clientName = project.expand?.userId?.name || 'Unknown User';
 
                     document.getElementById('projectId').textContent = project.id;
                     document.getElementById('projectName').textContent = project.projectName;
@@ -67,11 +67,7 @@ $(document).ready(function() {
         // Action for the request form button (this part is not specified yet)
         console.log('Request Form button clicked.');       
     });
-    document.getElementById('QuestionBtn').addEventListener('click', function() {
-        // Action for the request form button (this part is not specified yet)
-        console.log('Question button clicked.');       
-    });
-
+  
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('admin_auth');
