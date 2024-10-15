@@ -25,7 +25,11 @@
                             <span class="text">View Projects</span>
                         </a>
                     </li>
-
+                    <li>
+                        <a href="{{ url_for('status_update') }}">
+                            <span class="text">Update Project Status</span>
+                        </a>
+                    </li> 
                 </ul>
             </li>
             
@@ -39,6 +43,12 @@
                 <a href="{{ url_for('documents') }}">
                     <i class="icon ph-bold ph-file-text"></i>
                     <span class="text">Documents</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('change_request') }}">
+                    <i class="icon ph-bold">&#10002;</i>
+                    <span class="text">Change Request</span>
                 </a>
             </li>
         </ul>
