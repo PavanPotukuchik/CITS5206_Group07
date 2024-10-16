@@ -1,21 +1,20 @@
 $(document).ready(function() {
-    const authData = localStorage.getItem('admin_auth');
+    const authData = localStorage.getItem('client_auth');
     const API_URL = 'https://five206pocketbase.onrender.com';
     const FILE_COLLECTION = 'ChangeRequest';
 
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('projectId');
 
-    var userId = null;
-    var clientinfo = null;
+    var admininfo = null;
 
     if (!authData) {
         window.location.href = "/login";
-    }    
-
+    }
+    
     async function fetchProject() {
         try {
-                const response = await fetch('https://five206pocketbase.onrender.com/api/collections/project/records?expand=clientName', {
+                const response = await fetch('https://five206pocketbase.onrender.com/api/collections/project/records', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,8 +33,6 @@ $(document).ready(function() {
                     ddlProject.append($("<option></option>").val(project.id).html(project.projectName));
                 });
 
-                
-
                 if(projectId)
                 {
                     console.log(projectId);
@@ -50,7 +47,7 @@ $(document).ready(function() {
         }
     }
 
-    fetchProject();
+    fetchProject();    
 
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
@@ -58,7 +55,7 @@ $(document).ready(function() {
         localStorage.removeItem('client_auth');
         window.location.href = "/login";
     }); 
-    
+
     document.getElementById('ddlproject').addEventListener('change', async(e) => {
         e.preventDefault();
         
@@ -67,7 +64,7 @@ $(document).ready(function() {
 
         console.log("ProjectID: " + pid + ", ProjectName: " + pname);
          try{
-            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?filter=(id='${pid}')&expand=userId`, {
+            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?filter=(id='${pid}')`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -79,12 +76,10 @@ $(document).ready(function() {
             {
                 const projData = await response.json();
                 projData.items.forEach(proj => {
-                    userId = proj.userId,
-                    clientinfo = proj.expand?.userId?.name + '*' + proj.expand?.userId?.email
+                    admininfo = "Admin*" + proj.adminEmail;
                 });
-                console.log(projData);
-                console.log(clientinfo);
-                //showFlash(clientinfo);
+
+                console.log(admininfo);
             }
             else
             {
@@ -94,8 +89,7 @@ $(document).ready(function() {
          catch (error) {
             alert('An error occurred: ' + error.message);
         }
-    }); 
-
+    });
     
     document.getElementById('addChangeRequest').addEventListener('submit', async (e) => {
         
@@ -119,11 +113,12 @@ $(document).ready(function() {
         data.append('Features_to_be_changed', pfeatures);
         data.append('Change_to', pdescription);
         data.append('Reason', preason);
-        data.append('user', admin_Data.admin.id);
+        data.append('user', clin_Data.record.id); 
         data.append('Documents', file);
         
         try
         {
+            //const record = await pb.collection('ChangeRequest').create(data);
             var response = await fetch(`${API_URL}/api/collections/${FILE_COLLECTION}/records`, 
             {
                 method: 'POST',
@@ -137,18 +132,18 @@ $(document).ready(function() {
             if (response.ok) 
             {
                 var data = await response.json();
-                var fromName = "Admin";//"clin_Data.record.name";
-                var toName =  clientinfo.split('*')[0];
-                var toEmail =  clientinfo.split('*')[1];
-                var ccEmail = JSON.parse(authData).admin.email.toString().replaceAll('"');
+                var fromName = clin_Data.record.name;
+                var toName =  admininfo.split('*')[0];
+                var toEmail = admininfo.split('*')[1];//admin_Data.admin.email.toString().replaceAll('"');
+                var ccEmail = clin_Data.record.email;
                 
                 var params = {
                     project: pname.toUpperCase(),
-                    from_name: fromName,//fromName.replaceAll('"','').toUpperCase(),
-                    to_name: toName, //toEmail.split('@')[0].toUpperCase(),
+                    from_name: fromName,
+                    to_name: toName,
                     to_Email: toEmail,
                     cc_Email: ccEmail.replaceAll('"',''),
-                    sender_Name: fromName,//fromName.replaceAll('"','').toUpperCase(),
+                    sender_Name: fromName.replaceAll('"','').toUpperCase(),
                     tcktno: tktnumber,
                     features: pfeatures,
                     desc: pdescription,

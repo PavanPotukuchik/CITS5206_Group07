@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ChangReq.css') }}" />
+    <title>Project Status Update</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                </div>
+                <div class="user-details">
+                    <p class="title">Admin</p>
+                    <p class="name">Kartik</p>
+                </div>
+            </div>
+            {% include 'menu.html' %}
+        </div>
+        <div class="main-content">
+            <div class="content-area">
+                <div class="card">
+                    <div class="inner-card">
+                        <h2>Update Project Status</h2>
+                        <form id="addProjectForm" class="add-form">
+                            <div class="form-group">
+                                <label for="projectName">Enter Project Name</label>
+                                <select name="project" id="ddlproject" class="input-class" required>
+                                    <option value=""></option>
+                                    <option value="test">test</option>
+                                    <option value="test1">test1</option>
+                                    <option value="test2">test2</option>
+                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectName">Select Project Status</label>
+                                <select class="input-class" name="status" id="ddlstatus" required>
+                                    <option></option>
+                                    <option value="Active">Active</option>
+                                    <option value="Pending">Pending</option>    
+                                    <option value="Priority">Priority</option>
+                                    <option value="Not-Started">Not-Started</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectName">Select Project Sub-Status</label>
+                                <select class="input-class" name="substatus" id="ddlsubstatus" required>
+                                    <option></option>
+                                    <option value="Requirements-Gathering">Requirements-Gathering</option> 
+                                    <option value="Design">Design</option>
+                                    <option value="Implementation">Implementation</option> 
+                                    <option value="Testing">Testing</option> 
+                                    <option value="Maintenance">Maintenance</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="comments">Comments</label>
+                                <textarea id="comments" name="comments" rows="3" placeholder="comments" required></textarea>
+                            </div>
+                            <button type="submit" class="add-client-button">Update Status</button>
+                            <div role="alert" id="flashDiv">
+                                <label id="lblPass" class="modal-label"></label>
+                            </div>
+                        </form>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/status-update.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+   
+</body>
+</html>

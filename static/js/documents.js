@@ -178,6 +178,7 @@ $(document).ready(function() {
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('admin_auth');
+        localStorage.removeItem('client_auth');
         window.location.href = '/login';
     });
 

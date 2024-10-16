@@ -127,7 +127,7 @@ You need to have **PocketBase** running locally or use a hosted instance. Follow
   - Create a `users` collection with fields for `username`, `avatar`, etc.
   - Add a `files` collection to store user-related files.
   
-Make sure to update your `app.py` with the correct PocketBase URL (e.g., `http://127.0.0.1:8090`).
+Make sure to update your `app.py` with the correct PocketBase URL (e.g., `https://five206pocketbase.onrender.com`).
 
 ### 4. Run the Flask Application
 Start the Flask app:
