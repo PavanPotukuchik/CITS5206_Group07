@@ -51,6 +51,10 @@
                                 <input class="input-class" type="text" id="companyName" required>
                             </div>
                             <div class="form-group">
+                                <label for="avatar">Upload Client Avatar</label>
+                                <input class="input-class" type="file" id="avatar" accept="image/*">
+                            </div>
+                            <div class="form-group">
                                 <label for="password">Enter Password</label>
                                 <input class="input-class" type="password" id="password" required>
                             </div>
@@ -94,7 +98,8 @@
                 const record = await pb.collection('users').create(data);
 
             } catch (error) {
-                console.log('ERROR');
+                console.log('ERROR:', error);
+                alert('There was an error adding the client. Please try again.');
             }
         });
     </script>
