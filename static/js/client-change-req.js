@@ -1,6 +1,6 @@
 $(document).ready(function() {
     const authData = localStorage.getItem('client_auth');
-    const API_URL = 'http://127.0.0.1:8090';
+    const API_URL = 'https://five206pocketbase.onrender.com';
     const FILE_COLLECTION = 'ChangeRequest';
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -14,7 +14,7 @@ $(document).ready(function() {
     
     async function fetchProject() {
         try {
-                const response = await fetch('http://127.0.0.1:8090/api/collections/project/records', {
+                const response = await fetch('https://five206pocketbase.onrender.com/api/collections/project/records', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ $(document).ready(function() {
 
         console.log("ProjectID: " + pid + ", ProjectName: " + pname);
          try{
-            const response = await fetch(`http://127.0.0.1:8090/api/collections/project/records?filter=(id='${pid}')`, {
+            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?filter=(id='${pid}')`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -150,8 +150,8 @@ $(document).ready(function() {
                     reason: preason
                 };
         
-                var serviceID = "service_53kyzbr";
-                var templateID = "template_s60o8kk";
+                var serviceID = "service_aipxo79";
+                var templateID = "template_gkfotds";
         
                 emailjs.send(serviceID, templateID, params)
                 .then(

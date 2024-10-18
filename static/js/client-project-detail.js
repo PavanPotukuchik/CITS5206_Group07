@@ -9,7 +9,7 @@ $(document).ready(function() {
    
     async function fetchProjectDetails() {
         try {
-            const response = await fetch(`http://127.0.0.1:8090/api/collections/project/records?expand=clientid`, {
+            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?expand=clientid`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

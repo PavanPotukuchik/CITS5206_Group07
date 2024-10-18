@@ -3,9 +3,15 @@ $(document).ready(function() {
     const API_URL = 'https://five206pocketbase.onrender.com';
     const FILE_COLLECTION = 'ChangeRequest';
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('projectId');
+
+    var userId = null;
+    var clientinfo = null;
+
     if (!authData) {
         window.location.href = "/login";
-    }
+    }    
 
     async function fetchProject() {
         try {
@@ -28,6 +34,14 @@ $(document).ready(function() {
                     ddlProject.append($("<option></option>").val(project.id).html(project.projectName));
                 });
 
+                
+
+                if(projectId)
+                {
+                    console.log(projectId);
+                    $('#ddlproject').val(projectId);
+                }
+
             } else {
                 console.error('Failed to fetch project.');
             }
@@ -41,8 +55,47 @@ $(document).ready(function() {
     document.getElementById('logoutButton').addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('admin_auth');
+        localStorage.removeItem('client_auth');
         window.location.href = "/login";
     }); 
+    
+    document.getElementById('ddlproject').addEventListener('change', async(e) => {
+        e.preventDefault();
+        
+        var pid = document.getElementById('ddlproject').value;
+        var pname = $("#ddlproject option:selected").text();
+
+        console.log("ProjectID: " + pid + ", ProjectName: " + pname);
+         try{
+            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?filter=(id='${pid}')&expand=userId`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${JSON.parse(authData).token}`
+                }
+            });
+
+            if (response.ok) 
+            {
+                const projData = await response.json();
+                projData.items.forEach(proj => {
+                    userId = proj.userId,
+                    clientinfo = proj.expand?.userId?.name + '*' + proj.expand?.userId?.email
+                });
+                console.log(projData);
+                console.log(clientinfo);
+                //showFlash(clientinfo);
+            }
+            else
+            {
+                alert("Failed to fetch project.");
+            }
+         }
+         catch (error) {
+            alert('An error occurred: ' + error.message);
+        }
+    }); 
+
     
     document.getElementById('addChangeRequest').addEventListener('submit', async (e) => {
         
@@ -50,27 +103,27 @@ $(document).ready(function() {
 
         var pid = document.getElementById('ddlproject').value;
         var tktnumber = document.getElementById('ticket-number').value;
-        var pname = document.getElementById('ddlproject').textContent;
+        var pname = $("#ddlproject option:selected").text();
         var pfeatures = document.getElementById('feature-to-change').value;
         var pdescription = document.getElementById('description').value;
         var preason = document.getElementById('reason').value;
         var pfiledescription = document.getElementById('file-description').value; 
-        var authData = JSON.parse(localStorage.getItem('client_auth'));      
+        var admin_Data = JSON.parse(localStorage.getItem('admin_auth'));
+        var clin_Data = JSON.parse(localStorage.getItem('client_auth'));      
         var fileInput = document.getElementById('file-upload');
         var file = fileInput.files[0];
-            
+                   
         var data = new FormData();
         data.append('pid', pid);
         data.append('Ticket_Number', tktnumber);
         data.append('Features_to_be_changed', pfeatures);
         data.append('Change_to', pdescription);
         data.append('Reason', preason);
-        data.append('user', authData.record.id);
+        data.append('user', admin_Data.admin.id);
         data.append('Documents', file);
         
         try
         {
-            //const record = await pb.collection('ChangeRequest').create(data);
             var response = await fetch(`${API_URL}/api/collections/${FILE_COLLECTION}/records`, 
             {
                 method: 'POST',
@@ -83,16 +136,43 @@ $(document).ready(function() {
 
             if (response.ok) 
             {
-                var data = await response.json();                
-                showFlash("Change Request successfully entered.","success");
+                var data = await response.json();
+                var fromName = "Admin";//"clin_Data.record.name";
+                var toName =  clientinfo.split('*')[0];
+                var toEmail =  clientinfo.split('*')[1];
+                var ccEmail = JSON.parse(authData).admin.email.toString().replaceAll('"');
+                
+                var params = {
+                    project: pname.toUpperCase(),
+                    from_name: fromName,//fromName.replaceAll('"','').toUpperCase(),
+                    to_name: toName, //toEmail.split('@')[0].toUpperCase(),
+                    to_Email: toEmail,
+                    cc_Email: ccEmail.replaceAll('"',''),
+                    sender_Name: fromName,//fromName.replaceAll('"','').toUpperCase(),
+                    tcktno: tktnumber,
+                    features: pfeatures,
+                    desc: pdescription,
+                    reason: preason
+                };
+        
+                var serviceID = "service_aipxo79";
+                var templateID = "template_gkfotds";
+        
+                emailjs.send(serviceID, templateID, params)
+                .then(
+                    res => {
+                        console.log(JSON.stringify(res.status));
+                    })
+                .catch((err) => console.log(err));
+                
+                showFlash("Change Request successfully captured.","success");
             } 
             else 
             {
                 var err = await response.json();
                 var errString = JSON.stringify(err.data);
                 var myArray = errString.replaceAll('{','').replaceAll('}','').replaceAll('"','').split(":");
-                console.log(myArray);
-
+                
                 for (let i = 0; i < myArray.length; i++) {
                     if (myArray[i] === "code") 
                     {
@@ -107,8 +187,6 @@ $(document).ready(function() {
                         let spliced = myArray.splice(i, 1);
                     }
                 }
-                console.log(myArray);
-
                 showFlash("Failed: " + myArray.toString().replaceAll(".,","  ").replaceAll(",",": "), "error");
             }
         }
@@ -129,11 +207,6 @@ $(document).ready(function() {
             $("#flashDiv").addClass("alert alert-danger alert-dismissable");
         }
         $("#flashDiv").show();
-        $("#lblPass").text(text);           
-        // window.setTimeout(function () {
-        //     $(".alert").fadeTo(500, 0).slideUp(500, function () {
-        //         $(this).remove();
-        //     });
-        // }, 2000);
+        $("#lblPass").text(text); 
     } 
 });

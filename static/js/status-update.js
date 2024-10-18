@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const authData = localStorage.getItem('admin_auth');
-    const API_URL = 'http://127.0.0.1:8090';
+    const API_URL = 'https://five206pocketbase.onrender.com';
     
     const FILE_COLLECTION = 'statusUpdates';
 
@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     async function fetchProject() {
         try {
-            const response = await fetch('http://127.0.0.1:8090/api/collections/project/records', {
+            const response = await fetch('https://five206pocketbase.onrender.com/api/collections/project/records', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
