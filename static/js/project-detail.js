@@ -59,7 +59,7 @@ $(document).ready(function() {
     async function fetchProjectDetails() {
         try {
             const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?expand=userId`, {
-            const response = await fetch(`https://five206pocketbase.onrender.com/api/collections/project/records?expand=userId`, {
+            
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
