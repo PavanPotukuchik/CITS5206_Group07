@@ -56,9 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
                     // Update the table with the total projects count
                     document.getElementById('totalProjectsCount').innerText = totalProjectsCount;
-                    document.getElementById('inProgressCount').innerText = inProgressCount;
+                    document.getElementById('active').innerText = activeCount;
+                    //document.getElementById('inProgressCount').innerText = inProgressCount;
                     document.getElementById('completedCount').innerText = completedCount;
-                    document.getElementById('onHoldCount').innerText = onHoldCount;
+                    document.getElementById('pendingCount').innerText = pendingCount;
+                    //document.getElementById('onHoldCount').innerText = onHoldCount;
+                    document.getElementById('priority').innerText = priority;
+                    document.getElementById('notstarted').innerText = notstartedCount;
+
+
     
                     // Call the function to draw the chart with the project status counts
                     drawProjectChart(inProgressCount, completedCount, onHoldCount);

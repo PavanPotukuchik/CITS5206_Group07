@@ -17,11 +17,11 @@
             </div>
             <div class="head">
                 <div class="user-img">
-                    <img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" />
+                    <img id="adminAvatar" alt="Admin Avatar">
                 </div>
                 <div class="user-details">
                     <p class="title">Admin</p>
-                    <p class="name">Kartik</p>
+                    <p class="name" id="adminUsername-1"></p>
                 </div>
             </div>
             {% include 'menu.html' %}
@@ -49,6 +49,7 @@
                                     <option value="Pending">Pending</option>    
                                     <option value="Priority">Priority</option>
                                     <option value="Not-Started">Not-Started</option>
+                                    <option value="Complete">Complete</option>
                                 </select>
                             </div>
                             <div class="form-group">
