@@ -2,20 +2,14 @@
 CITS5206 - Information Technology Capstone Project SEM-2 2024
 
 
-  UWA ID	            Name	                    Github Username
-  
-23769386		  Yuchen Wang        		kkglovemy
-
-23985879		  Scarlett Peng          
-
-23866945	    Pavan Potukuchi	                 PavanPotukuchik
-
-24095031      Janki Prafulbhai Rangani
-
-23244793	Kartik Bhalala	
-
-
-23925667 	Jiaheng Gu 
+| UWA ID    | Name                      | GitHub Username    |
+| --------- | ------------------------- | ------------------ |
+| 23769386  | Yuchen Wang                | kkglovemy          |
+| 23985879  | Scarlett Peng              | Scarlettzpl        |
+| 23866945  | Pavan Potukuchi            | PavanPotukuchik    |
+| 24095031  | Janki Prafulbhai Rangani   | jankirangani       |
+| 23244793  | Kartik Bhalala             | kartikbhalala      |
+| 23925667  | Jiaheng Gu                 | HendrickGu         |
 	
 # Summary
 This project is a Client Portal developed for Rockingham Web Services (RWS) to streamline client communication and document management. The portal allows clients to upload, store, and manage project-related documents, reducing the need for back-and-forth emails. It also provides a project management feature where admins can assign tasks, track progress, and send questionnaires to clients. Built using PocketBase for the backend and Flask for API integration, the portal offers a user-friendly interface with distinct dashboards for clients and administrators, ensuring efficient project handling and document management.
