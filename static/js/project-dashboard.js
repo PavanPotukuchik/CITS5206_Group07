@@ -54,15 +54,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     });
     
-                    // Update the table with the total projects count
+                    // // Update the table with the total projects count
                     document.getElementById('totalProjectsCount').innerText = totalProjectsCount;
-                    document.getElementById('active').innerText = activeCount;
-                    //document.getElementById('inProgressCount').innerText = inProgressCount;
+                    // document.getElementById('active').innerText = activeCount;
+                    document.getElementById('inProgressCount').innerText = inProgressCount;
                     document.getElementById('completedCount').innerText = completedCount;
-                    document.getElementById('pendingCount').innerText = pendingCount;
-                    //document.getElementById('onHoldCount').innerText = onHoldCount;
-                    document.getElementById('priority').innerText = priority;
-                    document.getElementById('notstarted').innerText = notstartedCount;
+                    // document.getElementById('pendingCount').innerText = pendingCount;
+                    document.getElementById('onHoldCount').innerText = onHoldCount;
+                    // document.getElementById('priority').innerText = priority;
+                    // document.getElementById('notstarted').innerText = notstartedCount;
 
 
     
